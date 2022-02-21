@@ -53,8 +53,42 @@ def find_bracketed_chars(text):
 TEXT_2 = """How much wood would a woodchuck chuck If a woodchuck could chuck wood?
 He would chuck , he would , as much as he could , And chuck as much as a woodchuck would
 If a woodchuck could chuck wood."""
+import re
 
-def count_word_occurrences(text):
-  return text
+def count_word_occurrences(word, text):
+  split_string = re.split('\s|[,.?]', text.lower())
 
-print(count_word_occurrences(TEXT_2))
+  word_occurrences = 0
+  for w in split_string:
+    if w == word:
+      word_occurrences += 1
+  
+  return "{} appeared {} times in the provided text.".format(word, word_occurrences)
+
+
+###################################################################################################################################
+"""
+  4. Write a function that returns a provided string in order of ASCII codes, from
+  lowest to highest. 
+"""
+def reorder_by_ascii(string):
+  ascii_list = []
+
+  for char in string:
+    ascii_list.append((char, ord(char)))
+
+  sorted_list = sorted(ascii_list, key=lambda code: code[1])
+
+  reordered_string = ''
+
+  for pair in sorted_list:
+    reordered_string += pair[0]
+
+  return "\"{}\"".format(reordered_string)
+
+
+###################################################################################################################################
+"""
+  5. Write an autocorrect function:
+  -- 
+"""
