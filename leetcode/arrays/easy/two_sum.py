@@ -1,4 +1,9 @@
 """
+Given an array of numbers, return the indices of the two that sum to a target.
+Assume there is only one combination of array elements that satisfy this requirement.
+"""
+
+"""
   * my initial array-based successful leetcode solution
   * stats: 14MB memory (97.90%), 5197ms runtime (12.90%)
 """
@@ -31,7 +36,7 @@ class AltSolution(object):
         item_info[value] = i
 
 
-# test solution
+# test examples
 if __name__ == "__main__":
   # print(InitialSolution().twoSum([1, 2, 3, 4, 6], 9))
   print(AltSolution().twoSum([1, 2, 3, 4, 6], 9))
