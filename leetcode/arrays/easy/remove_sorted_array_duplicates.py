@@ -20,7 +20,8 @@ class Solution(object):
       else:
         track[val] = i
 
-    nums.sort(key=lambda x: (isinstance(x, str), x))
+    # False < True, so ints will be sorted to the front of the array
+    nums.sort(key=lambda x: isinstance(x, str))
     nums = nums[:len(nums) - c]
     return len(nums)
 
