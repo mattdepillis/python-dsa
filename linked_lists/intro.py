@@ -44,6 +44,32 @@ class LinkedList:
       print(current.data)
       current = current.next
 
+  def delete_from_beginning(self):
+    head = self.head
+    if head.next is not None:
+      self.head = head.next
+    del head
+
+  def delete_from_end(self):
+    previous = None
+    current = self.head
+    while current.next is not None:
+      previous = current
+      current = current.next
+    previous.next = None
+    del current
+
+  def delete_from_position(self, position):
+    previous = None
+    current = self.head
+    p = 1
+    while p < position and current.next is not None:
+      previous = current
+      current = current.next
+      p += 1
+    previous.next = current.next
+    del current
+
 def main():
   linked_list = LinkedList()
   linked_list.insert_at_beginning(3)
@@ -52,6 +78,9 @@ def main():
   linked_list.insert_at_end(5)
   linked_list.insert_at_position(6, 6)
   linked_list.insert_at_position(4, 4)
+  linked_list.delete_from_beginning()
+  linked_list.delete_from_end()
+  linked_list.delete_from_position(3)
 
   linked_list.traverse()
 
