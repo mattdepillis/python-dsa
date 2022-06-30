@@ -9,10 +9,11 @@ def maximum_subarray(nums):
     current_sum += nums[i]
     if nums[i] > current_sum and nums[i] > max_sum:
       start = i
+      end = i + 1
       max_sum = current_sum = nums[i]
     elif max_sum <= current_sum:
-      max_sum = current_sum
       end = i + 1
+      max_sum = current_sum
 
   return nums[start : end]
     
@@ -23,3 +24,4 @@ if __name__ == "__main__":
   print(maximum_subarray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
   print(maximum_subarray([7, 0, 1, 4, 5]))
   print(maximum_subarray([7]))
+  print(maximum_subarray([-1, 7]))
