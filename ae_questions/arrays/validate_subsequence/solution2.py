@@ -4,10 +4,10 @@ Given two non-empty arrays of integers, determine whether the second is a valid 
 def validate_subsequence(array, sequence):
   j = 0
 
-  for i in range(len(array)):
+  for i in array:
     if j == len(sequence):
       break
-    elif array[i] == sequence[j]:
+    elif i == sequence[j]:
       j += 1
 
   return j == len(sequence)
