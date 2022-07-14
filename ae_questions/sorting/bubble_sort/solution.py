@@ -1,5 +1,5 @@
 """
-Write a function that takes an array of integers and returns that array sorted using the bubble sort algorithm.
+Write a function that takes an array of integers and returns that array sorted using a bubble sort algorithm.
 """
 def bubble_sort(array):
   iterations = 0
