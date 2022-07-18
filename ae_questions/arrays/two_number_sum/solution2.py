@@ -9,12 +9,13 @@ def two_number_sum(array, target_sum):
     if elem in diffs:
       return [elem, diffs[elem]]
     diffs[target_sum - elem] = elem
+    print(diffs)
   return []
     
 
 if __name__ == "__main__":
   print(two_number_sum([3, 5, -4, 8, 11, 1, -1, 6], 10))
-  print(two_number_sum([4, 6], 10))
-  print(two_number_sum([4, 6, 1], 5))
-  print(two_number_sum([14], 15))
-  print(two_number_sum([3, 5, -4, 8, 11, 1, -1, 6], 15))
+  # print(two_number_sum([4, 6], 10))
+  # print(two_number_sum([4, 6, 1], 5))
+  # print(two_number_sum([14], 15))
+  # print(two_number_sum([3, 5, -4, 8, 11, 1, -1, 6], 15))

@@ -11,6 +11,7 @@ def bubble_sort(array):
       if array[i] > array[i + 1]:
         swapped = True
         array[i], array[i + 1] = array[i + 1], array[i]
+      iterations += 1
   
   return array
 
