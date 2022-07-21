@@ -6,12 +6,10 @@ This implementation asks the author to count 0 as the first number in the sequen
 sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
 """
 def nth_fibonacci(n):
-  if n == 1:
-    return 0
-  elif n == 2:
-    return 1
+  if n <= 2:
+    return n - 1
   return nth_fibonacci(n - 1) + nth_fibonacci(n - 2)
 
 
 if __name__ == "__main__":
-  print(nth_fibonacci(6))
+  print(nth_fibonacci(3))
