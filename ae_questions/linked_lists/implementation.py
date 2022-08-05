@@ -1,13 +1,21 @@
+"""
+Simple linked list implementation. only inserts at end at the moment.
+Will be modified to contain more specific insertion methods for more complex linked list problems.
+"""
+
 class Node:
   def __init__(self, value):
     self.value = value
     self.next = None
 
+
 class LinkedList:
   def __init__(self):
     self.head = None
 
-  def insert(self, data):
+  # insertion at end of the linked list, assuming each new node will be added to the end of the list
+  # ? used in: easy -> remove duplicates from linked list
+  def simple_insert_at_end(self, data):
     value = data["value"]
     new_node = Node(value)
 
@@ -17,9 +25,10 @@ class LinkedList:
       current = self.head
       while current.next is not None:
         current = current.next
-      current.next = new_node
-    
+      current.next = new_node    
 
+  # standard linked list traversal function.
+  # traverses through the nodes and prints value at each position
   def traverse(self):
     current = self.head
 

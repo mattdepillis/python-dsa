@@ -12,9 +12,9 @@ def nth_fibonacci(n):
 
   # * NOTE: you could write as below if you didn't count 0 as the first number in the sequence
   # if n <= 1:
-  #   return 1
+  #   return n
   # return nth_fibonacci(n - 1) + nth_fibonacci(n - 2)
 
 
 if __name__ == "__main__":
-  print(nth_fibonacci(3))
+  print(nth_fibonacci(4))
