@@ -9,36 +9,21 @@ from os import path
 sys.path.append( path.dirname( path.dirname ( path.dirname ( path.abspath(__file__) ) ) ) )
 
 from implementation import LinkedList
+from solution import create_list
 ######## END IMPORTS ########
 
-# creates a list from a JSON-imported linked list format
-def create_list(nodes):
-  linked_list = LinkedList()
-  for node in nodes:
-    linked_list.simple_insert_at_end(node)
-  return linked_list
-
-# remove duplicates function
 def remove_duplicates_from_linked_list(list):
   linked_list = create_list(list["nodes"])
 
   current = linked_list.head
   while current.next is not None:
-    advance = False
-
-    next = current.next
-    while not advance:
-      if next is None or next.value != current.value:
-        advance = True
-      else:
-        next = next.next
-        current.next = next
-    if current.next is not None:
+    if current.value == current.next.value:
+      current.next = current.next.next
+    else:
       current = current.next
   
-  # linked_list.traverse()
+  print(linked_list.traverse())
   return linked_list
-
 
 if __name__ == "__main__":
   list = {
