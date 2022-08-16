@@ -2,7 +2,6 @@
 Implement a graph class and write a depth-first search method that traverses the graph from left to right, starting with the startNode. The method should return an array of all nodes, in the order in which they were visited on traversal.
 """
 class Graph:
-  # do something
   def __init__(self, data):
     nodes, start = data['nodes'], data['start']
 
@@ -13,17 +12,14 @@ class Graph:
       value, children = node['value'], node['children']
       self.graph[value] = children
 
-    print(self.graph)
+  def run_dfs(self):
+    return self.depth_first_search(self.start, visited=[])
 
-  def depth_first_search(self):
-    visited = []
-    def dfs(node):
-      if node not in visited:
-        visited.append(node)
-        for child in self.graph[node]:
-          dfs(child)
-    dfs(self.start)
-      
+  def depth_first_search(self, node, visited):
+    if node not in visited:
+      visited.append(node)
+      for child in self.graph[node]:
+        self.depth_first_search(child, visited)
     return visited
 
 
@@ -44,4 +40,4 @@ if __name__ == "__main__":
     ],
     "start": "A"
   })
-  print(graph.depth_first_search())
+  print(graph.run_dfs())
