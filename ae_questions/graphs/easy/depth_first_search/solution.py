@@ -16,7 +16,7 @@ class Graph:
     return self.depth_first_search(self.start, visited=[])
 
   def depth_first_search(self, node, visited):
-    if node not in visited:
+    if node not in visited: # this is needed for some types of graph configurations; likely not needed for trees
       visited.append(node)
       for child in self.graph[node]:
         self.depth_first_search(child, visited)
