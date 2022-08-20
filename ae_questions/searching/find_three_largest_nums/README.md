@@ -31,7 +31,7 @@ Instead, while the list size is greater than 3, I take the min of the first 4 va
 # A Better Solution
 Instead, we can make use of two tricks to write a better algorithm:
 - we can init an fixed-size array full of negative infinite values to start, which takes case of the negative number case.
-- sorting a fixed-size array is an O(1) operation - therefore, we can do so within a loop without performance degradation.
+- sorting a fixed-size array within a loop is an O(1) operation because the time complexity doesn't change with an increase in n - therefore, we can do so within a loop without performance degradation.
 
 **Pseudocode:**
 - init an array of size 4 ```largest``` to contain all ```-inf``` values.
