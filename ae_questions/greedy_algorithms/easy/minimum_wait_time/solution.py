@@ -5,9 +5,9 @@ def minimum_wait_time(array):
   array.sort()
   min_time = sum = 0
 
-  for i in range(len(array)):
+  for item in array:
     min_time += sum
-    sum += array[i]
+    sum += item
 
   return min_time
 
