@@ -42,9 +42,7 @@ class DoublyLinkedList:
   """
   def createOrReturnNode(self, value):
     node = self.containsNodeWithValue(value)
-    if not node:
-      node = Node(value)
-    return node
+    return node if node else Node(value)
 
   ### ! END HELPER FUNCTIONS ! ###
   ### * FUNCTIONS TO CONSTRUCT * ###
@@ -71,8 +69,7 @@ class DoublyLinkedList:
       self.head = self.tail = node
       return
     # TODO: modify to return value from insertBefore
-    node.next, self.head.prev = self.head, node
-    self.head = node
+    return self.insertBefore(self.head, node)
 
   """
   """
@@ -82,7 +79,12 @@ class DoublyLinkedList:
   """
   """
   def insertBefore(self, node, nodeToInsert):
-    return node
+    if nodeToInsert.prev or nodeToInsert.next:
+      nodeToInsert = self.remove(nodeToInsert)
+    print('n', nodeToInsert.value, nodeToInsert.prev, nodeToInsert.next)
+    nodeToInsert.prev, nodeToInsert.next, node.prev = node.prev, node, nodeToInsert
+    if self.head == node:
+      self.head = nodeToInsert
 
   """
   """
@@ -102,6 +104,13 @@ class DoublyLinkedList:
   """
   """
   def remove(self, node):
+    prev, next = node.prev, node.next
+    if prev is None:
+      self.head, prev.prev = next, None
+    elif next is None:
+      self.tail, prev.next = prev, None
+    else:
+      prev.next, next.prev = next, prev
     return node
 
 
@@ -115,10 +124,10 @@ if __name__ == "__main__":
     node = list.createOrReturnNode(n)
     list.setHead(node)
 
+  # * test setHead for already-existing node in DoublyLinkedList -- tested and works.
+  node = list.createOrReturnNode(4)
+  list.setHead(node)
+
   list.traverse_forward()
   print('--------------')
   list.traverse_backward()
-  
-  # testing additional operations
-  # node = list.createOrReturnNode(4)
-  # list.setHead(node)
