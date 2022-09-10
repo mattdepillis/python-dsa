@@ -44,6 +44,12 @@ class DoublyLinkedList:
     node = self.containsNodeWithValue(value)
     return node if node else Node(value)
 
+  """
+  creates a node, regardless of whether there's currently a node in the list with the same value.
+  """
+  def createNode(self, value):
+    return Node(value)
+
   ### ! END HELPER FUNCTIONS ! ###
   ### * FUNCTIONS TO CONSTRUCT * ###
 
@@ -70,6 +76,8 @@ class DoublyLinkedList:
     return self.insertBefore(self.head, node)
 
   """
+  sets the passed-through value as the linked list's tail node.
+  moves an already-existing node to the tail position, rather than creating a new node with the same value.
   """
   def setTail(self, node):
     if not self.tail:
@@ -78,6 +86,9 @@ class DoublyLinkedList:
     return self.insertAfter(self.tail, node)
   
   """
+  inserts nodeToInsert into the list before node.
+  if nodeToInsert is already in the list, it's first removed.
+  then the method inserts it in front of node, taking into account whether or not node is self.head.
   """
   def insertBefore(self, node, nodeToInsert):
     if nodeToInsert.prev or nodeToInsert.next:
@@ -91,6 +102,9 @@ class DoublyLinkedList:
     nodeToInsert.prev, nodeToInsert.next, node.prev = node.prev, node, nodeToInsert
 
   """
+  inserts nodeToInsert into the list after node.
+  if nodeToInsert is already in the list, it's first removed.
+  then the method inserts it after node, taking into account whether or not node is self.tail.
   """
   def insertAfter(self, node, nodeToInsert):
     if nodeToInsert.prev or nodeToInsert.next:
@@ -111,13 +125,24 @@ class DoublyLinkedList:
   """
   """
   def removeNodesWithValue(self, value):
-    return node
+    current = self.head
+    while current:
+      if current.value == value:
+        curr = current.next if current.next else current
+        self.remove(current)
+        current = curr
+      current = current.next
 
   """
   """
   def remove(self, node):
     prev, next = node.prev, node.next
-    prev.next, next.prev = next, prev
+    if not prev:
+      self.head, next.prev = next, None
+    elif not next:
+      self.tail, prev.next = prev, None
+    else:
+      prev.next, next.prev = next, prev
     node.prev = node.next = None
     return node
 
@@ -149,6 +174,10 @@ if __name__ == "__main__":
   # node = list.createOrReturnNode(3)
   # node2 = list.createOrReturnNode(4)
   # list.insertAfter(node2, node)
+
+  # * test removeNodesWithValue. This tests an edge case (tail).
+  # list.setTail(list.createNode(3))
+  # list.removeNodesWithValue(3)
 
   list.traverse_forward()
   print('--------------')
