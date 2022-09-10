@@ -64,32 +64,44 @@ class DoublyLinkedList:
   moves an already-existing node to the head position, rather than creating a new node with the same value.
   """
   def setHead(self, node):
-    # print('n', node)
-    if self.head is None:
+    if not self.head:
       self.head = self.tail = node
       return
-    # TODO: modify to return value from insertBefore
     return self.insertBefore(self.head, node)
 
   """
   """
   def setTail(self, node):
-    return node
+    if not self.tail:
+      self.head = self.tail = node
+      return
+    return self.insertAfter(self.tail, node)
   
   """
   """
   def insertBefore(self, node, nodeToInsert):
     if nodeToInsert.prev or nodeToInsert.next:
       nodeToInsert = self.remove(nodeToInsert)
-    print('n', nodeToInsert.value, nodeToInsert.prev, nodeToInsert.next)
-    nodeToInsert.prev, nodeToInsert.next, node.prev = node.prev, node, nodeToInsert
-    if self.head == node:
+
+    if not node.prev:
       self.head = nodeToInsert
+    else:
+      node.prev.next = nodeToInsert
+
+    nodeToInsert.prev, nodeToInsert.next, node.prev = node.prev, node, nodeToInsert
 
   """
   """
   def insertAfter(self, node, nodeToInsert):
-    return node
+    if nodeToInsert.prev or nodeToInsert.next:
+      nodeToInsert = self.remove(nodeToInsert)
+
+    if not node.next:
+      self.tail = nodeToInsert
+    else:
+      node.next.prev = nodeToInsert
+
+    nodeToInsert.prev, nodeToInsert.next, node.next = node, node.next, nodeToInsert
 
   """
   """
@@ -105,12 +117,8 @@ class DoublyLinkedList:
   """
   def remove(self, node):
     prev, next = node.prev, node.next
-    if prev is None:
-      self.head, prev.prev = next, None
-    elif next is None:
-      self.tail, prev.next = prev, None
-    else:
-      prev.next, next.prev = next, prev
+    prev.next, next.prev = next, prev
+    node.prev = node.next = None
     return node
 
 
@@ -124,9 +132,23 @@ if __name__ == "__main__":
     node = list.createOrReturnNode(n)
     list.setHead(node)
 
-  # * test setHead for already-existing node in DoublyLinkedList -- tested and works.
-  node = list.createOrReturnNode(4)
-  list.setHead(node)
+  # * test setHead for already-existing node in DoublyLinkedList.
+  # node = list.createOrReturnNode(4)
+  # list.setHead(node)
+
+  # * test insertBefore for a non-head edge case.
+  # node = list.createOrReturnNode(4)
+  # node2 = list.createOrReturnNode(3)
+  # list.insertBefore(node2, node)
+
+  # * test setTail for already-existing node in DoublyLinkedList.
+  # node = list.createOrReturnNode(3)
+  # list.setTail(node)
+
+  # * test insertAfter for a non-tail edge case.
+  # node = list.createOrReturnNode(3)
+  # node2 = list.createOrReturnNode(4)
+  # list.insertAfter(node2, node)
 
   list.traverse_forward()
   print('--------------')
