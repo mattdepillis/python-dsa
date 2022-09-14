@@ -92,7 +92,7 @@ class DoublyLinkedList:
   """
   def insertBefore(self, node, nodeToInsert):
     if nodeToInsert.prev or nodeToInsert.next:
-      nodeToInsert = self.remove(nodeToInsert)
+      self.remove(nodeToInsert)
 
     if not node.prev:
       self.head = nodeToInsert
@@ -108,7 +108,7 @@ class DoublyLinkedList:
   """
   def insertAfter(self, node, nodeToInsert):
     if nodeToInsert.prev or nodeToInsert.next:
-      nodeToInsert = self.remove(nodeToInsert)
+      self.remove(nodeToInsert)
 
     if not node.next:
       self.tail = nodeToInsert
@@ -120,8 +120,9 @@ class DoublyLinkedList:
   """
   """
   def insertAtPosition(self, position, nodeToInsert):
+    if self.head is None:
+      return self.setHead(nodeToInsert)
     current, position = self.head, position - 1
-    print(current)
     while position > 0:
       current, position = current.next, position - 1
     
@@ -132,26 +133,23 @@ class DoublyLinkedList:
   def removeNodesWithValue(self, value):
     current = self.head
     while current:
-      if current.value == value:
-        curr = current.next if current.next else current
-        self.remove(current)
-        current = curr
-      current = current.next
+      current, prev = current.next, current
+      if prev.value == value:
+        self.remove(prev)
 
   """
   """
   def remove(self, node):
     prev, next = node.prev, node.next
-    if not prev:
+    if not prev and not next:
+      self.head = self.tail = None
+    elif not prev:
       self.head, next.prev = next, None
-      return
-    if not next:
+    elif not next:
       self.tail, prev.next = prev, None
-      return
     else:
       prev.next, next.prev = next, prev
     node.prev = node.next = None
-    return node
 
 
 if __name__ == "__main__":
@@ -162,51 +160,10 @@ if __name__ == "__main__":
   # nodes = [1, 2, 3, 4, 5]
   # for n in nodes[::-1]:
   #   list.setHead(list.createOrReturnNode(n))
+  # list.setTail(list.createOrReturnNode(1))
 
-  # * test setHead for already-existing node in DoublyLinkedList.
-  # list.setHead(list.createOrReturnNode(4))
-  # * test insertBefore for a non-head edge case.
-  # node = list.createOrReturnNode(4)
-  # node2 = list.createOrReturnNode(3)
-  # list.insertBefore(node2, node)
-  # * test setTail for already-existing node in DoublyLinkedList.
-  # node = list.createOrReturnNode(3)
-  # list.setTail(node)
-  # * test insertAfter for a non-tail edge case.
-  # node = list.createOrReturnNode(3)
-  # node2 = list.createOrReturnNode(4)
-  # list.insertAfter(node2, node)
-  # * test removeNodesWithValue. This tests an edge case (tail).
-  # list.setTail(list.createNode(3))
-  # list.removeNodesWithValue(3)
-  # * test insertAtPosition.
-  # list.insertAtPosition(1, list.createNode(6))
-  # * testing -- case 1
-  # nodes = [1, 2, 3, 4, 5]
-  # for n in nodes[::-1]:
-  #   list.setHead(list.createOrReturnNode(n))
-  # list.setHead(list.createOrReturnNode(4))
-  # list.setTail(list.createNode(6))
-  # list.insertBefore(list.createOrReturnNode(6), list.createOrReturnNode(3))
-  # list.insertAfter(list.createOrReturnNode(6), list.createNode(3))
-  # list.insertAtPosition(1, list.createNode(3))
-  # list.removeNodesWithValue(3)
-  # list.remove(list.createOrReturnNode(2))
-  # * testing -- case 2
-  # nodes = [1]
-  # for n in nodes:
-  #   list.setHead(list.createOrReturnNode(n))
-  # * testing -- case 3
-  # nodes = [1]
-  # for n in nodes:
-  #   list.setTail(list.createOrReturnNode(n))
-  # * testing -- case 17
-  # list.setHead(list.createOrReturnNode(1))
-  # list.insertAfter(list.createOrReturnNode(1), list.createOrReturnNode(2))
-  # list.insertAfter(list.createOrReturnNode(2), list.createOrReturnNode(3))
-  # list.remove(list.createOrReturnNode(1))
-  # * testing -- case 16
-  list.setHead(list.createOrReturnNode(1))
+  for i in range(4):
+    list.setHead(list.createNode(1))
   list.removeNodesWithValue(1)
 
   list.traverse_forward()
