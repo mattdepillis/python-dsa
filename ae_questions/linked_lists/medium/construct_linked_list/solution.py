@@ -55,6 +55,7 @@ class DoublyLinkedList:
 
   """
   returns the list node containing a given value.
+  
   TC: O(n), SC: O(1)
   """
   def containsNodeWithValue(self, value):
@@ -68,6 +69,8 @@ class DoublyLinkedList:
   """
   sets the passed-through value as the linked list's head node.
   moves an already-existing node to the head position, rather than creating a new node with the same value.
+
+  TC: O(1), SC: O(1)
   """
   def setHead(self, node):
     if not self.head:
@@ -78,6 +81,8 @@ class DoublyLinkedList:
   """
   sets the passed-through value as the linked list's tail node.
   moves an already-existing node to the tail position, rather than creating a new node with the same value.
+
+  TC: O(1), SC: O(1)
   """
   def setTail(self, node):
     if not self.tail:
@@ -89,6 +94,8 @@ class DoublyLinkedList:
   inserts nodeToInsert into the list before node.
   if nodeToInsert is already in the list, it's first removed.
   then the method inserts it in front of node, taking into account whether or not node is self.head.
+
+  TC: O(1), SC: O(1)
   """
   def insertBefore(self, node, nodeToInsert):
     if nodeToInsert.prev or nodeToInsert.next:
@@ -105,6 +112,8 @@ class DoublyLinkedList:
   inserts nodeToInsert into the list after node.
   if nodeToInsert is already in the list, it's first removed.
   then the method inserts it after node, taking into account whether or not node is self.tail.
+
+  TC: O(1), SC: O(1)
   """
   def insertAfter(self, node, nodeToInsert):
     if nodeToInsert.prev or nodeToInsert.next:
@@ -118,6 +127,12 @@ class DoublyLinkedList:
     nodeToInsert.prev, nodeToInsert.next, node.next = node, node.next, nodeToInsert
 
   """
+  inserts a node at a given position in the linked list (self.head = 1).
+  if head is none, set the node as the head node.
+  else, iterate through the list by decrementing position until the desired position is reached.
+  then, insert the node before the node that's already there.
+
+  TC: O(p) where p = position, SC: O(1)
   """
   def insertAtPosition(self, position, nodeToInsert):
     if self.head is None:
@@ -129,6 +144,11 @@ class DoublyLinkedList:
     return self.insertBefore(current, nodeToInsert)
 
   """
+  removes all nodes with specified value from the list.
+  starts with the list head.
+  moves current to next. if the previous node (on rep 1, would be list.head), has value, remove it.
+
+  TC: O(n), SC: O(1)
   """
   def removeNodesWithValue(self, value):
     current = self.head
@@ -138,6 +158,12 @@ class DoublyLinkedList:
         self.remove(prev)
 
   """
+  removes a node from the doubly linked list.
+  checks 1) that it's not both head and tail, 2) that it's not either. If so, handles adjacents accordingly.
+  else, connects previous and following nodes.
+  finally, sets own prev and next to None to disconnect from list.
+
+  TC: O(1), SC: O(1)
   """
   def remove(self, node):
     prev, next = node.prev, node.next
