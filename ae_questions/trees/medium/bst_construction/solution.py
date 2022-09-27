@@ -34,22 +34,71 @@ class BST:
       return self.contains(value, node.left)
     elif node.value < value:
       return self.contains(value, node.right)
-    
 
-  def preorder_traversal(self, node):
+  def preorder_traversal(self, node, list):
+    if node:
+      list.append(node.value)
+    if node.left:
+      self.preorder_traversal(node.left, list)
+    if node.right:
+      self.preorder_traversal(node.right, list)
+
+    return list
+
+  def inorder_traversal(self, node, list):
+    if node.left:
+      self.postorder_traversal(node.left, list)
+    if node:
+      list.append(node.value)
+    if node.right:
+      self.postorder_traversal(node.right, list)
+    return list
+
+  def postorder_traversal(self, node, list):
+    if node.left:
+      self.postorder_traversal(node.left, list)
+    if node.right:
+      self.postorder_traversal(node.right, list)
+    if node:
+      list.append(node.value)
+
+    return list
+
+  def remove(self, node, value):
     if not node:
-      return
+      return node
+    elif value > node.value:
+      node.right = self.remove(node.right, value)
+    elif value < node.value:
+      print('less')
+      node.left = self.remove(node.left, value)
     else:
-      print(node.value)
-      self.preorder_traversal(node.left)
-      self.preorder_traversal(node.right)
+      if not node.right:
+        return node.left
+      if not node.left:
+        return node.right
+      
+      start = node.right
+      print('s', start.value)
+      while start.left:
+        print('ss', start.value)
+        start = start.left
+      node = start
+      return node
+    return node
 
 
 if __name__ == "__main__":
-  bst = BST(8)
-  to_insert = [6, 4, 7, 10]
+  bst = BST(10)
+  to_insert = [5, 15, 2, 6, 1, 13, 22, 12, 14]
   for item in to_insert:
     bst.insert(item, bst.root)
 
-  bst.preorder_traversal(node=bst.root)
-  print(bst.contains(10, bst.root))
+  print(bst.preorder_traversal(node=bst.root, list=[]))
+
+  node = bst.remove(node=bst.root, value=5)
+
+  print(bst.preorder_traversal(node=bst.root, list=[]))
+  # print(bst.inorder_traversal(node=bst.root, list=[]))
+  # print(bst.postorder_traversal(node=bst.root, list=[]))
+  # print(bst.contains(10, bst.root))
