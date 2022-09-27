@@ -70,7 +70,6 @@ class BST:
     elif value > node.value:
       node.right = self.remove(node.right, value)
     elif value < node.value:
-      print('less')
       node.left = self.remove(node.left, value)
     else:
       if not node.right:
@@ -79,10 +78,9 @@ class BST:
         return node.right
       
       start = node.right
-      print('s', start.value)
       while start.left:
-        print('ss', start.value)
         start = start.left
+      start.left, start.right = node.left, node.right
       node = start
       return node
     return node
@@ -96,7 +94,7 @@ if __name__ == "__main__":
 
   print(bst.preorder_traversal(node=bst.root, list=[]))
 
-  node = bst.remove(node=bst.root, value=5)
+  node = bst.remove(node=bst.root, value=2)
 
   print(bst.preorder_traversal(node=bst.root, list=[]))
   # print(bst.inorder_traversal(node=bst.root, list=[]))
