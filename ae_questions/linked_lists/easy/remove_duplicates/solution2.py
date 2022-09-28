@@ -8,7 +8,6 @@ from os import path
 # adds 2nd parent dir to path so that implementation's LinkedList class can be accessed
 sys.path.append( path.dirname( path.dirname ( path.dirname ( path.abspath(__file__) ) ) ) )
 
-from implementation import LinkedList
 from solution import create_list
 ######## END IMPORTS ########
 
@@ -22,7 +21,7 @@ def remove_duplicates_from_linked_list(list):
     else:
       current = current.next
   
-  print(linked_list.traverse())
+  linked_list.traverse()
   return linked_list
 
 if __name__ == "__main__":
