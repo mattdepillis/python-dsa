@@ -18,6 +18,7 @@ def remove_kth_node_from_end(list, k):
   c = counter - k
   if c == 0:
     list.head = list.head.next
+    return list
   while c > 1:
     c -= 1
     second = second.next
