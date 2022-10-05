@@ -1,7 +1,10 @@
 """
 Given two linked lists both storing a value from 0-9 at each node, calculate the combined sum of the two lists. Construct and return a new linked list that represents the combined sum. Each node traversed in a linkedlist should represent a jump in the 10s place.
 
-For example, ```sum_linked_lists()``` on list1 = 0 -> 9 -> 1 and list2 = 2 -> 1 -> 2 should return a linked list of 2 -> 0 -> 4.  
+For example, ```sum_linked_lists()``` on list1 = 0 -> 9 -> 1 and list2 = 2 -> 1 -> 2 should return a linked list of 2 -> 0 -> 4.
+
+TC: O(n + m), where n + m is the combined length of the linked lists
+SC: O(max(n, m)) - the list will have approximately max(n, m) nodes, depending on which (if either) is longer
 """
 import sys
 from os import path
@@ -11,11 +14,12 @@ sys.path.append(path.dirname( path.dirname ( path.dirname ( path.abspath(__file_
 from implementation_for_local import LinkedList
 
 def helper(list):
-  current, sum = list.head, ''
+  current, sum, multiplier = list.head, 0, 0
   while current:
-    sum = str(current.value) + sum
+    sum += current.value * (10 ** multiplier)
+    multiplier += 1
     current = current.next
-  return int(sum)
+  return sum
 
 def sum_linked_lists(list1, list2):
   sum = helper(list1) + helper(list2)
