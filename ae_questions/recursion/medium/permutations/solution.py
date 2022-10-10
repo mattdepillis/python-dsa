@@ -1,5 +1,5 @@
 """
-Given an array of integers and a target integer, return the array such that all instances of that integer are found at the end of the array.
+Given an array of integers, find all the possible permutations of those integers (i.e. all the ways they can be uniquely arranged).
 TC: O(n*n!), SC: O(n*n!)
 """
 def get_permutations(array, arr, r):
