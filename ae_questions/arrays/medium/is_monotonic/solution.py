@@ -2,6 +2,9 @@
 Write a function that takes in an array of integers and determines whether or not the array is monotonic - that is, whether each of its array elements (left to right) are non-increasing or non-decreasing.
 
 For example, ```is_monotonic([-1, -5, -10, -1100, -1100, -1101, -1102, -9001])``` should return ```true``` because all elements are equal to or less than the previous item.
+
+TC: O(n)
+SC: O(1)
 """
 def is_monotonic(array):
   if len(array) < 2:
