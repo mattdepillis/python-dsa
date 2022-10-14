@@ -11,7 +11,7 @@ def is_monotonic(array):
     return True
 
   direction = None
-  for i in range(1, len(array) - 1):
+  for i in range(1, len(array)):
     d = "less" if array[i] < array[i - 1] else "more" if array[i] > array[i - 1] else "equal"
     if d is not "equal":
       if not direction:
@@ -24,3 +24,4 @@ if __name__ == "__main__":
   print(is_monotonic([-1, -5, -10, -1100, -1100, -1101, -1102, -9001])) # true
   print(is_monotonic([1, 1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 7, 9, 10, 11])) # false
   print(is_monotonic([1, 2])) # true
+  print(is_monotonic([-1, -5, 10])) # false
