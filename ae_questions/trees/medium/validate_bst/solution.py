@@ -9,26 +9,19 @@ sys.path.append(path.dirname( path.dirname ( path.dirname ( path.abspath(__file_
 from ae_bst import Tree as t
 
 def validate_bst_children(node, less, greater):
-  print(f"less: {less}, greater: {greater}, node: {node.value}")
   if node.value < max(less, default=float('-inf')) or node.value >= min(greater, default=float('inf')):
-    print('xxc')
     return False
   else:
-    # if not node.left and not node.right:
     if not node:
       return True
-    x = True
+    valid = True
     if node.left:
-      x = validate_bst_children(node.left, less, greater + [node.value])
-      print('x', x, 'node', node.value)
-      if not x:
+      valid = validate_bst_children(node.left, less, greater + [node.value])
+      if not valid:
         return False
     if node.right:
-      x = validate_bst_children(node.right, less + [node.value], greater)
-      print('x', node.value, max(greater, default=0))
-      if not x:
-        return False
-    return x
+      valid = validate_bst_children(node.right, less + [node.value], greater)
+    return valid
 
 def validate_bst(root):
   if root.left:
