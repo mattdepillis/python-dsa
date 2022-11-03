@@ -1,5 +1,5 @@
 """
-
+River sizes algorithm.
 """
 class Node:
   def __init__(self, value):
@@ -38,7 +38,7 @@ def dfs_rivers(node, visited, count):
       count += 1
       for n in node.neighbors:
         if n:
-          count += dfs_rivers(n, visited, count)
+          count = dfs_rivers(n, visited, count)
   return count
 
 def river_sizes(matrix):
