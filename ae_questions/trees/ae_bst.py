@@ -16,7 +16,6 @@ class Tree:
   """
   """
   def dfs_to_find_value(self, node, id):
-    print('n', node.value)
     if node.left:
       if isinstance(node.left, str):
         if node.left == id:
