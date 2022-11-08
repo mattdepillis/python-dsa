@@ -1,5 +1,8 @@
 """
 Write a function that takes in a matrix of n * m proportions and returns an array of the matrix traversed in spiral order, starting in the matrix's top left hand corner.
+
+TC: O(n) -- must traverse through each node. Cut off while loop if all matrix elements have been traversed
+SC: O(n) -- spiral should have a size of n elements, where n = len(matrix) * len(matrix[0])
 """
 def spiral_traverse(matrix):
   spiral = []
