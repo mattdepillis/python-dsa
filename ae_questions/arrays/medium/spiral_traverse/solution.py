@@ -16,7 +16,6 @@ def spiral_traverse(matrix):
         matrix[h][i] = False
       w = i
     for j in range(iterations + 1, height):
-      print(matrix[j][w])
       if matrix[j][w]:
         spiral.append(matrix[j][w])
         matrix[j][w] = False
