@@ -1,5 +1,9 @@
 """
 Given a string of length <= 12, write a function that returns all the possible IP addresses that can be created be inserting 3 "."s into the string. Reminder: the integers (each 1-3 digit num separated by the .) in the IP address must be from 0-255.
+
+TC: O(1) ???
+SC: O(1) ??? 
+-- This probably has to do with the fact that valid IP address length is bounded from 4-12.
 """
 # determines whether a digit combo is valid.
 def is_valid(string):
