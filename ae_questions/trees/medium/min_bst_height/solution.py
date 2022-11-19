@@ -1,5 +1,8 @@
 """
 Provided a non-empty sorted array of integers, write a function that constructs a BST of minimal height.
+
+TC: O(n) -- traversing through each node provided in the array
+SC: O(n) -- new node (bst) obj for each item in array, + approaching n new array objects for array_left and array_right at each tree depth
 """
 
 # test BST (Node) class
