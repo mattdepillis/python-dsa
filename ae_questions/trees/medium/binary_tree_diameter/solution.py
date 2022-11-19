@@ -12,16 +12,12 @@ sys.path.append(path.dirname( path.dirname ( path.dirname ( path.abspath(__file_
 from ae_bst import Tree as t
 
 def helper(node, list):
-  max_left = max_right = int
+  max_left = max_right = 0
 
-  if not node.left:
-    max_left = 0
-  else:
+  if node.left:
     max_left = helper(node.left, list)
 
-  if not node.right:
-    max_right = 0
-  else:
+  if node.right:
     max_right = helper(node.right, list)
   
   list.append(max_left + max_right)
