@@ -9,20 +9,29 @@ Write a function that takes in two strings and returns the minimum number of edi
 TC:
 SC:
 """
-
-# optimal TC: O(n*m)
-# optimal SC: O(min(n, m))
 def levenshtein_distance(s1, s2):
-  operations, list_s1 = (abs(len(s1) - len(s2))), list(s1)
-  print('operations', operations)
+  matrix = [ [x for x in range(len(s1) + 1)] for y in range(len(s2) + 1)]
 
-  for char in s2:
-    for i in range(len(list_s1)):
-      if list_s1[i] == char:
-        list_s1.pop(i)
-        break
+  for i in range(1, len(s2) + 1):
+    matrix[i][0] = matrix[i - 1][0] + 1
 
-  return operations + len(list_s1)
+  for i in range(1, len(s2) + 1):
+
+    for j in range(1, len(s1) + 1):
+
+      # if the prev letter of the first word = the prev letter of the second word
+      if s1[j - 1] == s2[i - 1]:
+        matrix[i][j] = matrix[i - 1][j - 1]
+      else:
+        matrix[i][j] = min(
+          matrix[i - 1][j],
+          matrix[i][j - 1],
+          matrix[i - 1][j - 1]
+        ) + 1
+
+  print(matrix)
+
+  return matrix[-1][-1]
 
 
 if __name__ == "__main__":
