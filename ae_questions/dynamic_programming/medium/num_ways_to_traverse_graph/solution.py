@@ -1,8 +1,8 @@
 """
 Write a function that, given 2 positive integers representing the height and width of a graph, returns the number of ways to reach the bottom right corner of the graph when starting at the top left. All moves must be down and right.
 
-TC: O(n + m) ?
-SC: O(n * m)
+TC: O(n * m) -- proportional to m * n even though it won't quite reach m * n matrix operations
+SC: O(n * m) -- need to create a matrix of m * n size
 """
 
 # solution 1
