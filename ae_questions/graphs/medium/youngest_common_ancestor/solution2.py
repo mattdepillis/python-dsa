@@ -9,44 +9,35 @@ class Node:
     self.name = name
     self.ancestor = ancestor
 
-"""
-Function to mimic the graph storage technique AE might use.
-"""
 def construct_graph(nodes, graph):
   for node in nodes:
     graph[node['name']] = Node(node['name'], graph[node['ancestor']] if node['ancestor'] else None)
   return graph
 
-"""
-find the depth of each node
-"""
 def node_depth(top, node):
-  depth = 1
+  depth = 0
   while node != top:
     node = node.ancestor
     depth += 1
   return depth
 
 """
-core function.
+Function that improves on ancestor searching logic in solution.py.
+"""
+def backtrack_to_ancestor(lower, higher, depth_difference):
+  while depth_difference > 0:
+    lower, depth_difference = lower.ancestor, depth_difference - 1
+  while lower != higher:
+    lower, higher = lower.ancestor, higher.ancestor
+  return lower
+
+"""
+Simplification of the core function from solution.py.
 """
 def get_youngest_common_ancestor(top_ancestor, descendant_one, descendant_two):
   d1_depth, d2_depth = node_depth(top_ancestor, descendant_one), node_depth(top_ancestor, descendant_two)
-
-  deep, shallow = (descendant_one, descendant_two) if d1_depth > d2_depth else (descendant_two, descendant_one)
-  diff = abs(d1_depth - d2_depth)
-
-  while diff > 0:
-    if deep.ancestor == shallow:
-      return shallow
-    diff -= 1
-    deep = deep.ancestor
-
-  a1, a2 = deep, shallow
-  while True:
-    if a1.ancestor == a2.ancestor:
-      return a1.ancestor
-    a1, a2 = a1.ancestor, a2.ancestor
+  if d1_depth > d2_depth: return backtrack_to_ancestor(descendant_one, descendant_two, d1_depth - d2_depth)
+  else: return backtrack_to_ancestor(descendant_two, descendant_one, d2_depth - d1_depth)
 
 if __name__ == "__main__":
   # nodes = [
@@ -91,4 +82,4 @@ if __name__ == "__main__":
   ]
 
   graph = construct_graph(nodes, {})
-  print(get_youngest_common_ancestor(graph['A'], graph['T'], graph['H']).name)
+  print(get_youngest_common_ancestor(graph['A'], graph['T'], graph['H']))
