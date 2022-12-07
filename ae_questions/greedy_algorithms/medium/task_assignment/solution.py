@@ -1,5 +1,8 @@
 """
 Given an integer k representing the number of workers and an array of 2k tasks to accomplish, write a function that gets the tasks done in the optimal amount of time. Tasks are done in parallel. The function should return a list of pairs that represent the indices of the tasks from the input task list that each worker will do.
+
+TC: O(n * log(n)) -- this is the maximum TC of the sorting function. for-loops are O(n)
+SC: O(n) -- a new array t of size n and a new assignments array of n total integers are formed = ~2n space needed.
 """
 def task_assignment(k, tasks):
   assignments = []
