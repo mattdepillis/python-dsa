@@ -1,11 +1,15 @@
 """
+Given a matrix of 1s and 0s, remove the islands from the matrix. An island is defined as a 1 in the matrix that either is not directly connected to a 1 on the perimeter of the matrix, or is not connected to a perimeter 1 through connection to one or more adjacent 1s not on the perimeter.
 
+TC: O(wh),
+SC: O(wh),
+where w = matrix width and h = matrix length.
 """
 def dfs(i, j, valid_indices, matrix, visited):
   pairs_to_check = [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]
 
   for (x, y) in pairs_to_check:
-    if (x, y) not in visited and matrix[x][y] == 1:
+    if matrix[x][y] == 1 and (x, y) not in visited:
       if (x, y) in valid_indices or dfs(x, y, valid_indices, matrix, visited + [(x, y)]):
         valid_indices.add((i, j))
         return True
