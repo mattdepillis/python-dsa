@@ -53,6 +53,12 @@ class Tree:
     traverses left -> root -> right.
   """
   def inorder_traversal(self, node, list):
+    if node.left:
+      self.inorder_traversal(node.left, list)
+    if node:
+      list.append(node.value)
+    if node.right:
+      self.inorder_traversal(node.right, list)
     return list
     
   """
