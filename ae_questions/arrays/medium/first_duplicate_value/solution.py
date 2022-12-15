@@ -1,5 +1,8 @@
 """
+Given an array of integers with values between 1 and n, where n is the length of the array, write a function that returns the first integer that appears more than once.
 
+Optimal TC: O(n)
+Optimal SC: O(1)
 """
 
 # O(n) ST solution
