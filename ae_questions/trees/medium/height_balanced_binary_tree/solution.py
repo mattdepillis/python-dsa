@@ -1,5 +1,10 @@
 """
+Given the root of a binary tree, return True if the BT is height-balanced, and False if it isn't.
 
+A BT is height balanced if, at any given node of the tree, its left and right subtrees have a depth difference of greater than 1.
+
+TC: O(n) -- worst-case, must reach each node in the tree.
+SC: O(d), where d = max depth. Must hold maximum of d recursive calls on the stack at a time.
 """
 import sys
 from os import path
