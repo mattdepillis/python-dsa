@@ -6,11 +6,12 @@ SC: O(h) -- worst-case, need to store h recursive calls on the stack. variable s
 """
 
 def find_successor(tree, node):
+  # search one side of the tree or the other
   return
 
 
 if __name__ == "__main__":
   print()
-  
+
   # NOTE: for sake of time, this will not be tested locally as new functions would need to be written.
   # this problem was solved on ae console.
