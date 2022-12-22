@@ -1,10 +1,13 @@
 """
+Given a list of integers, write a function that returns a boolean indicating whether or not there's a subarray of the array that sums to 0. Valid subarrays can range from length 1 to the length of the array itself.
 
+TC: O(n^2) worst-case
+SC: O(1)
 """
 def zero_sum_subarray(array):
   if 0 in array: return True
 
-  while len(array) > 0:
+  while len(array) > 1:
     s = sum(array)
     if s == 0: return True
     else:

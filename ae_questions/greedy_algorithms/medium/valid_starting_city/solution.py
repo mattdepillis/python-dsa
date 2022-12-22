@@ -1,9 +1,12 @@
 """
 Imagine a set of cities laid out in a circle, connected by one road. Given an array of distances between those cities, the number of gallons of gas you can get in each city, and the MPG a car gets, calculate the city you should start in to travel around the circle of cities ending with no gas left in the tank. There is exactly one starting city that is valid for a given array of distances.
+
+
 """
 def valid_starting_city(distances, gallons, mpg):
   diff = valid_city = diff_at_valid_city = 0
   gallons = [i * mpg for i in gallons]
+
   for i in range(1, len(distances)):
     diff += gallons[i - 1] - distances[i - 1]
     if diff < diff_at_valid_city:
