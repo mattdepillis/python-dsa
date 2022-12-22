@@ -8,7 +8,19 @@ def zero_sum_subarray(array):
     s = sum(array)
     if s == 0: return True
     else:
-      closest_index = 0 if abs(s - array[0]) <= abs(s - array[len(array) - 1]) else len(array) - 1
+      start, end = 0, len(array) - 1
+      closest_index = start if abs(s - array[start]) <= abs(s - array[end]) else end
+
+      num_to_check = len(array) // 2
+      check = array[:num_to_check] if closest_index == end else array[-num_to_check]
+      if isinstance(check, list):
+        check_sum = 0
+        for i in range(len(check)):
+          check_sum += check[i]
+          if check_sum == s:
+            closest_index = start if closest_index == end else end
+            break
+ 
       array.pop(closest_index)
 
   return False
