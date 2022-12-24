@@ -5,25 +5,27 @@ TC:
 SC:
 """
 def four_number_sum(array, target):
-  sums, store = [], {}
+  store = {}
 
   for i in range(len(array)):
     temp_store = {}
-    print(f"array[i]: {array[i]}, store: {store}")
     for s in store:
-      ts_key = target - (sum(store[s]) + array[i])
-      temp_store[ts_key] = store[s] + [array[i]]
-      
-      if len(temp_store[ts_key]) == 4:
-        if sum(temp_store[ts_key]) == target: sums.append(temp_store[ts_key])
-        del temp_store[ts_key]
+      for si in range(len(store[s])):
+        ts_key = (sum(store[s][si]) + array[i])
 
-    store.update(temp_store)
-    store[array[i]] = [array[i]]
+        if not ts_key in temp_store: temp_store[ts_key] = [store[s][si] + [array[i]]]
+        else: temp_store[ts_key] += [store[s][si] + [array[i]]]
 
-  return sums
+    for item in temp_store:
+      if not item in store: store[item] = temp_store[item]
+      else: store[item] += temp_store[item]
+
+    if not array[i] in store: store[array[i]] = [[array[i]]]
+    else: store[array[i]] += [[array[i]]]
+
+  return [s for s in store[target] if len(s) == 4] if target in store else []
 
 
 if __name__ == "__main__":
-  # print(four_number_sum([7, 6, 4, -1, 1, 2], 16))
-  print(four_number_sum([5, -5, -2, 2, 3, -3], 0))
+  print(four_number_sum([7, 6, 4, -1, 1, 2], 16))
+  print('\n', four_number_sum([5, -5, -2, 2, 3, -3], 0))
