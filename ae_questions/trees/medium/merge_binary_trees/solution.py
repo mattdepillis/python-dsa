@@ -1,8 +1,7 @@
 """
 Given 2 binary trees, merge them and return the result. If there are nodes at the same relative position in both trees, sum them.
 
-TC: O(n) -- where n = number of nodes in the larger tree
-SC: O(d + n) -- where d1 = depth of larger tree and n = nodes in the new tree
+NOTE: TC analyses in the comments above the respective merge functions
 """
 import sys
 from os import path
@@ -18,8 +17,14 @@ class Node:
     self.left = None
     self.right = None
 
-# merges values of node1 and node2
-def merge(node1, node2):
+"""
+* ORIGINAL SOLUTION *
+merges values of node1 and node2.
+
+TC: O(n) -- where n = number of nodes in the larger tree
+SC: O(d + n) -- where d1 = depth of larger tree and n = nodes in the new tree
+"""
+def merge1(node1, node2):
   if not node1 and not node2:
     return None
 
@@ -29,12 +34,34 @@ def merge(node1, node2):
   n1_left, n2_left = None if not node1 else node1.left, None if not node2 else node2.left
   n1_right, n2_right = None if not node1 else node1.right, None if not node2 else node2.right
 
-  combined.left, combined.right = merge(n1_left, n2_left), merge(n1_right, n2_right)
+  combined.left, combined.right = merge1(n1_left, n2_left), merge1(n1_right, n2_right)
 
   return combined
 
+
+"""
+* SOLUTION 2 *
+merges values of node1 and node2.
+
+! Optimizations over Solution 1:
+  - less space used, as the original tree1 is modified in-place
+  - if nothing found at a given node for either tree, just return the other tree
+    - this means you can just traverse down until the shorter tree ends at any given node
+
+TC: O(n) -- where n is the number of nodes in the smaller tree (don't need to traverse through the larger tree at any given node at any point in either tree)
+SC: O(d) -- where d is the max depth in the smaller tree at any given point
+"""
+def merge2(node1, node2):
+  if not node1: return node2
+  if not node2: return node1
+  node1.value = node1.value + node2.value
+  node1.left, node1.right = merge2(node1.left, node2.left), merge2(node1.right, node2.right)
+  return node1
+
+
 def merge_binary_trees(tree1, tree2):
-  return merge(tree1, tree2)
+  # return merge1(tree1, tree2)
+  return merge2(tree1, tree2)
 
 
 if __name__ == "__main__":
