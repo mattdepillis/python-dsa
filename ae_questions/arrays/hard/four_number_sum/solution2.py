@@ -1,8 +1,12 @@
 """
 Given a non-empty array of distinct integers and target sum, return all possible 4-number sums equivalent to the target in a 2-dimensional array.
 
+NOTE: solution1 is much better from a complexity standpoint.
+
 TC:
+  - O(n * (2^n)) -- need to repeat loop for each item; at each loop, there are more and more combinations needed to be traversed
 SC:
+  - O(2^n) -- need to create a new array in the store from each item in already in the store by the new item.
 """
 def four_number_sum(array, target):
   store = {}

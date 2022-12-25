@@ -1,8 +1,8 @@
 """
 Given a non-empty array of distinct integers and target sum, return all possible 4-number sums equivalent to the target in a 2-dimensional array.
 
-TC:
-SC:
+TC: O(n^3) -- three-number sum is O(n^2) time-complex, + need to multiply by another n
+SC: O(n) -- space for store is O(n) space-complex, + another n for sums 
 """
 def three_number_sum(array, target):
   s = []
