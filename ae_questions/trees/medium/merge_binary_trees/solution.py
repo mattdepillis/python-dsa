@@ -1,5 +1,8 @@
 """
+Given 2 binary trees, merge them and return the result. If there are nodes at the same relative position in both trees, sum them.
 
+TC: O(n) -- where n = number of nodes in the larger tree
+SC: O(d + n) -- where d1 = depth of larger tree and n = nodes in the new tree
 """
 import sys
 from os import path
@@ -15,7 +18,7 @@ class Node:
     self.left = None
     self.right = None
 
-
+# merges values of node1 and node2
 def merge(node1, node2):
   if not node1 and not node2:
     return None
@@ -31,8 +34,7 @@ def merge(node1, node2):
   return combined
 
 def merge_binary_trees(tree1, tree2):
-  n = merge(tree1, tree2)
-  print(n.left.left.value)
+  return merge(tree1, tree2)
 
 
 if __name__ == "__main__":
