@@ -1,5 +1,8 @@
 """
+Write a function that takes an array of at least 2 integers and returns an array of the start+end indices of the subarray that needs to be sorted in place sort the entire array. If the entire array is already sorted, return [-1, -1].
 
+TC: O(n), where n is the size of the input array
+SC: O(1)
 """
 def subarray_sort(array):
   unsorted_end = -1
