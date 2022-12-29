@@ -1,5 +1,8 @@
 """
 Write a function that takes 2 strings and returns the longest common subsequence. Characters in the subsequence do not necessarily have to be adjacent to each other in a given string.
+
+TC: O(n * m) -- where n is the length of s1 and m is the length of s2
+SC: O(n * m)
 """
 def determine_indices(i, s1, s2):
   j, multiple = -1, False
@@ -33,6 +36,7 @@ def longest_common_subsequence(s1, s2):
           temp[new], added = [i, temp_j], True
       subsequences.update(temp)
       if not added and not s1[i] in subsequences: subsequences[s1[i]] = [i, j]
+    print(subsequences)
     
   return longest
 
