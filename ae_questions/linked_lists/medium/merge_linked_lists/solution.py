@@ -1,8 +1,8 @@
 """
 Given 2 linked lists of lengths m and n, which may potentially merge at an intersection node, write a function that returns the intersection node if it exists, or None if it doesn't.
 
-TC:
-SC:
+TC: O(m + n) -- must loop through both lists to determine length, and then again with max iterations = all the way through both lists to determine whether there exists an intersection node
+SC: O(1) -- constant regardless of list sizes
 """
 class ListNode:
   def __init__(self, value):
@@ -43,6 +43,5 @@ if __name__ == "__main__":
       if i < len(list) - 1: list[i].next = list[i + 1]
     
   list1_nodes[len(list1_nodes) - 1].next = list2_nodes[len(list2_nodes) - 1].next = shared_node
-  # list2_nodes[len(list2_nodes) - 1].next = shared_node
 
   print(merge_linked_lists(list1_nodes[0], list2_nodes[0]))
