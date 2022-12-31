@@ -1,7 +1,12 @@
 """
+Write a function that takes an array of integers and returns an array of len=2 representing the largest range of consecutive integers in the array.
 
-
+TC: O(n) -- loop through all array elements multiple times
+SC: O(n) -- need to create neg and pos, which sum to n elements
 """
+
+# helper function to determine whether to include a number in the most recent range, or to create a new one
+# handles both negative and positive integer values
 def evaluate_num(num, ranges, longest):
   if not len(ranges):
     ranges += [[num, num]]
@@ -20,6 +25,7 @@ def evaluate_num(num, ranges, longest):
     longest = [range_diff, comp]
 
   return ranges, longest
+
 
 def largest_range(array):
   neg, pos = set({abs(x) for x in array if x < 0}), set({x for x in array if x >= 0})
