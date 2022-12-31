@@ -9,9 +9,26 @@ class ListNode:
     self.value = value
     self.next = None
 
+# small helper function to calculate list length
+def calculate_list_length(list):
+  length = 0
+  while list: length, list = length + 1, list.next
+  return length
 
 def merge_linked_lists(list1, list2):
-  return list1.value, list2.value
+  list1_length, list2_length = calculate_list_length(list1), calculate_list_length(list2)
+
+  longer, shorter = (list1, list2) if list1_length >= list2_length else (list2, list1)
+  len_longer, len_shorter = max(list1_length, list2_length), min(list1_length, list2_length)
+
+  while len_longer > len_shorter:
+    longer, len_longer = longer.next, len_longer - 1
+
+  while longer:
+    if longer == shorter: return longer
+    longer, shorter = longer.next, shorter.next
+
+  return None
 
 
 if __name__ == "__main__":
