@@ -1,5 +1,5 @@
 """
-
+Write a function that takes the head of a singly-linked list and...
 """
 class Node:
   def __init__(self, value, nxt):
@@ -7,8 +7,19 @@ class Node:
     self.next = nxt
 
 def find_loop(node):
-  print(node.value, node.next)
-  return node
+  while node:
+    if isinstance(node.value, str):
+      node.value = int(node.value)
+      break
+    node.value = str(node.value)
+    node = node.next
+
+  origin, current = node, node.next
+
+  while current is not origin:
+    current.value = int(current.value)
+    current = current.next
+  return origin
 
 
 if __name__ == "__main__":
