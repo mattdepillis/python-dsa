@@ -1,5 +1,14 @@
 """
-Write a function that takes the head of a singly-linked list and...
+Write a function that takes the head of a singly-linked list and returns the node at the origin of the loop where the loop begins.
+
+For example, ```find_loop``` should return Node(4) when running on a singly list structured as follows:
+
+  0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
+                      |         |
+                      9 <- 8 <- 7
+
+TC: O(n) -- need to loop all the way through until the item with a string value is found. Then loop back until you find that node again, changing all node values back into ints along the way.
+SC: O(1) -- no changes to amount of storage, proportional to number of nodes.
 """
 class Node:
   def __init__(self, value, nxt):
