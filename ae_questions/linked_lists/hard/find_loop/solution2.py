@@ -7,9 +7,18 @@ For example, ```find_loop``` should return Node(4) when running on a singly list
                       |         |
                       9 <- 8 <- 7
 
-NOTE: Because values are 1 char long, type conversion is an O(1) operation in this problem's cases. However, this would not be as TC-optimal a solution if expected to store values of longer length and potentially different data types. This solution was optimized for constraints of the edge cases given. Solution2 explains a more optimal way to find the correct solution without sacrificing TC when linked list nodes store different types of values.
 
-TC: O(n) -- need to loop all the way through until the item with a string value is found. Then loop back until you find that node again, changing all node values back into ints along the way. Type conversions are O(1) in the provided edge cases to solve.
+NOTE: This approach is referred to as the Floyd's Cycle-Finding ("Tortoise and the Hare") Algorithm. With mathematical proofs, it can be proven that the origin node in a cycle of a linked list will be a multiple of origin-head nodes away from the head node. In the above example of 10 nodes, the tortoise and hare pointers meet at node 6, which is exactly 1(4 - 0) nodes away from node 4.
+
+* Explanation *
+  - create 2 pointers -- one slow, one fast.
+  - while not equal to each other, increment the slow pointer by 1 through the list, and the fast pointer by 2.
+  - when the pointers arrive at the same node, exit the loop.
+  - reset the slow pointer to the head node.
+  - while the slow and fast pointers aren't at the same node, increment them each by 1.
+  - return the meeting node, which is the origin node of the loop.
+
+TC: O(n) -- need to loop all the way through until the item with a string value is found. Then loop back until you find that node again, changing all node values back into ints along the way.
 SC: O(1) -- no changes to amount of storage, proportional to number of nodes.
 """
 class Node:
@@ -17,21 +26,16 @@ class Node:
     self.value = value
     self.next = nxt
 
-def find_loop(node):
-  while node:
-    if isinstance(node.value, str):
-      node.value = int(node.value)
-      break
-    node.value = str(node.value)
-    node = node.next
+def find_loop(head):
+  slow, fast = head.next, head.next.next
+  while slow != fast:
+    slow, fast = slow.next, fast.next.next
 
-  origin, current = node, node.next
+  slow = head
+  while slow != fast:
+    slow, fast = slow.next, fast.next
 
-  while current is not origin:
-    current.value = int(current.value)
-    current = current.next
-  return origin
-
+  return slow
 
 if __name__ == "__main__":
   # holding data structure for nodes
@@ -61,4 +65,3 @@ if __name__ == "__main__":
   head = dict[0]
 
   print(find_loop(head))
-
