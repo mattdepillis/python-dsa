@@ -1,4 +1,8 @@
 """
+Given a non-empty array of positive integers, where each int represents the max # of steps forward in the array from that index that can be taken, return the minimum number of jumps needed to get from the starting to ending indices of the array.
+
+TC: O(n)
+SC: O(m), where m = minimum jumps (must hold m recursive calls on the stack)
 """
 def recurse(array, i):
   max_jumps = array[i]
