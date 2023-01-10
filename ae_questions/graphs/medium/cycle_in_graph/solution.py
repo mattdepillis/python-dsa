@@ -1,8 +1,8 @@
 """
 Given an adjacency list for a graph (directed, unweighted), write a function that returns a boolean indicating whether or not the graph contains a cycle.
 
-TC:
-SC: 
+TC: max O((v + e) * v) -- "if edge in ways" means there's an O(n) search method called within an O(v + e) TC double for-loop
+SC: O(v)
 """
 def cycle_in_graph(edges):
   ways = {}
@@ -13,7 +13,6 @@ def cycle_in_graph(edges):
         if v in ways[edge]: return True
         ways[v] = ways[edge] + [edge]
       else: ways[v] = [edge]
-
 
   return False
 

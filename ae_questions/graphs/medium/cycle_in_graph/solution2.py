@@ -3,8 +3,8 @@ Given an adjacency list for a graph (directed, unweighted), write a function tha
 
 NOTE: this solution improves upon solution 1 (which might contain O(n) operations for given stack searching operations) by using a stack DS and DFS to determine whether a node a) has already been visited and if not, to continue DFSing to see if a node is visited twice in the process of recursion, or b) is already in the stack (at which point True is returned)
 
-TC:
-SC:
+TC: O(v + e) -- skip nodes that have already been visited; use of a stack
+SC: O(v)
 """
 def recurse(node, edges, visited, stack):
   visited[node] = True
