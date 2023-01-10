@@ -1,5 +1,8 @@
 """
+Given an adjacency list for a graph (directed, unweighted), write a function that returns a boolean indicating whether or not the graph contains a cycle.
 
+TC:
+SC: 
 """
 def cycle_in_graph(edges):
   ways = {}
@@ -11,18 +14,18 @@ def cycle_in_graph(edges):
         ways[v] = ways[edge] + [edge]
       else: ways[v] = [edge]
 
+
   return False
 
-
 if __name__ == "__main__":
-  print(cycle_in_graph([
-    [1, 3],
-    [2, 3, 4],
-    [0],
-    [],
-    [2, 5],
-    []
-  ]))
+  # print(cycle_in_graph([
+  #   [1, 3],
+  #   [2, 3, 4],
+  #   [0],
+  #   [],
+  #   [2, 5],
+  #   []
+  # ]))
 
   print(cycle_in_graph([
     [1],
