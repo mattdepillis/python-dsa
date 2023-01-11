@@ -1,18 +1,27 @@
 """
+Given three nodes (the top node in an org chart tree, as well as two other nodes to find), return the lowest common parent of both the nodes to find.
 
+TC: O(n) -- at worst, must iterate through each node in the tree
+SC: O(d) -- must store at most O(d)-proportional recursive calls on the stack, where d = max depth of the tree
 """
 class Node:
   def __init__(self, name):
     self.name = name
     self.reports = []
 
+# determines whether or not a node to find is an immediate/distant child of a parent node
 def search_for_node(reports, node_to_find):
   for r in reports:
-    if node_to_find in reports:
+    if node_to_find == r:
       return True
     if search_for_node(r.reports, node_to_find): return True
   return False
 
+"""
+Recurses down the tree to find which node is the lowest common parent.
+Uses the second return value (Bool) to signify whether both nodes have been found at a given node in the tree.
+If so, the node will be returned. Else, bubble up until both values are returned to the lowest common parent.
+"""
 def recurse(node, r1, r2):
   if node == r1 or node == r2:
     to_find = r1 if node == r2 else r1
@@ -29,11 +38,8 @@ def recurse(node, r1, r2):
   return None, False
 
 def lowest_common_manager(node, r1, r2):
-  # (n, found) = recurse(node, r1, r2)
-  # return n.name if found else node.name
   return recurse(node, r1, r2)[0]
   
-
 
 if __name__ == "__main__":
   nodes = [
