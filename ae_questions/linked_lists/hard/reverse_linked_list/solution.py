@@ -1,8 +1,8 @@
 """
 Write a function that takes a head of a singly-linked list and reverses it in-place.
 
-TC:
-SC:
+TC: O(n) -- but suboptimal, as this is a 2n (double-pass) solution
+SC: O(n) -- this is actually an O(n) solution, as a new key must be stored at each node
 """
 class Node:
   def __init__(self, value):

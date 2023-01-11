@@ -1,14 +1,15 @@
 """
 Write a function that takes a head of a singly-linked list and reverses it in-place.
 
-TC:
-SC:
+TC: O(n) -- one-pass solution
+SC: O(1) -- no extra key created + switching is done in one pass
 """
 class Node:
   def __init__(self, value):
     self.value = value
     self.next = None
 
+# more optimal solution -- in-place switch of next
 def reverse_linked_list(node):
   prev, current = None, node
   while current:
