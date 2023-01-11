@@ -10,19 +10,14 @@ class Node:
     self.next = None
 
 def reverse_linked_list(node):
-  current, prev = node, None
+  prev, current = None, node
   while current:
-    current.prev = prev
-    prev, current = current, current.next
-  
-  current = prev
-  while current:
-    current.next = current.prev
-    del current.prev
-    current = current.next
+    next = current.next
+    current.next = prev
+    prev, current = current, next
   return prev
 
-
+  
 if __name__ == "__main__":
   nodes = [
     {"id": "0", "next": "1", "value": 0},
