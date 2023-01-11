@@ -8,7 +8,17 @@ class Node:
 
 
 def reverse_linked_list(node):
-  return node
+  current, prev = node, None
+  while current:
+    current.prev = prev
+    prev, current = current, current.next
+  
+  current = prev
+  while current:
+    current.next = current.prev
+    del current.prev
+    current = current.next
+  return prev
 
 
 if __name__ == "__main__":
