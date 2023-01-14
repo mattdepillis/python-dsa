@@ -1,5 +1,8 @@
 """
 Write a function that takes in a binary tree and determines whether or not it's symmetrical.
+
+TC: O(n)
+SC: O(d) -- max # of elements on l + r stacks proportional to max depth of the tree
 """
 import sys
 from os import path
@@ -9,21 +12,18 @@ sys.path.append(path.dirname( path.dirname ( path.dirname ( path.abspath(__file_
 from ae_bst import Tree as t
 
 
-def inorder_traversal(node, list):
-  if node.left: inorder_traversal(node.left, list)
-  if node: list.append(node.value)
-  if node.right: inorder_traversal(node.right, list)
-  return list
-
 def is_symmetrical_tree(tree):
+  # stack method -- create l and r stacks and start comparing at each level
   left, right = [tree.left], [tree.right]
 
   while len(left) > 0:
     l, r = left.pop(0), right.pop(0)
     if not l and not r: continue
-    
+
     if (l and r) and l.value == r.value:
+      # for left stack, add left first (compare with right.right)
       left = left + [l.left, l.right]
+      # for right stack, add right first
       right = right + [r.right, r.left]
     else: return False
 

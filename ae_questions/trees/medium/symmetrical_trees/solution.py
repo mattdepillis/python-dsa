@@ -1,5 +1,8 @@
 """
 Write a function that takes in a binary tree and determines whether or not it's symmetrical.
+
+TC: O(n), where n = nodes
+SC: O(n + d), where n = nodes (values stored in list) and d = max depth of tree (max calls on stack)
 """
 import sys
 from os import path
@@ -8,12 +11,14 @@ sys.path.append(path.dirname( path.dirname ( path.dirname ( path.abspath(__file_
 
 from ae_bst import Tree as t
 
+# helper function -- performs inorder_traversal on the tree
 def inorder_traversal(node, list):
   if node.left: inorder_traversal(node.left, list)
   if node: list.append(node.value)
   if node.right: inorder_traversal(node.right, list)
   return list
 
+# inorder traversal, then confirm that the returned list is "palindromic"
 def is_symmetrical_tree(tree):
   iot = inorder_traversal(tree, list=[])
 
