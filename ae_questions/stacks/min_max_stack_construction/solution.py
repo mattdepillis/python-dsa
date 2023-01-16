@@ -5,9 +5,6 @@ Write a min-max class for a min-max stack. Methods should include:
   - pushing and popping values onto/off of the stack
 
 NOTE: this first solution will use Python's list data structure for implementation.
-
-TC:
-SC:
 """
 class MinMaxStack:
   def __init__(self):
@@ -15,9 +12,11 @@ class MinMaxStack:
     self.max = None
     self.stack = []
 
+  # O(1) T+S
   def peek(self):
     return self.stack[0]
 
+  # O(1) T+S
   def push(self, value):
     if self.min is None or value < self.min:
       self.min = value
@@ -25,24 +24,27 @@ class MinMaxStack:
       self.max = value
     self.stack.insert(0, value)
 
+  # O(n) T, O(1) S
   def pop(self):
     top = self.stack[0]
     self.stack.pop(0)
     self.check_min_and_max(top)
     return top
 
+  # O(n) T, O(1) S
   def check_min_and_max(self, value):
     if value == self.get_min():
       self.min = min(self.stack)
     if value == self.get_max():
       self.max = max(self.stack) 
 
+  # O(1) T+S
   def get_min(self):
     return self.min
 
+  # O(1) T+S
   def get_max(self):
     return self.max
-
 
 
 if __name__ == "__main__":
