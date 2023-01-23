@@ -1,7 +1,7 @@
 """
 """
 def water_area(heights):
-  last = None
+  last, last_index = None, 0
   max = max_index = total_pole_height = highest_since_max = 0
   area = temp_area = 0
 
@@ -19,9 +19,9 @@ def water_area(heights):
           if height >= highest_since_max:
             temp_area = height * (i - max_index - 1) - total_pole_height
             highest_since_max = height
-          else: temp_area += min(last, height)
+          else: temp_area += min(last, height) * (i - last_index - 1)
         total_pole_height += height
-        last = height
+      last, last_index = height, i
     
   return area + temp_area
 
@@ -29,4 +29,5 @@ def water_area(heights):
 if __name__ == "__main__":
   # print(water_area([0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3]))
   # print(water_area([0, 8, 0, 0, 10, 0, 0, 10, 0, 0, 1, 1, 0, 3]))
-  print(water_area([0, 100, 0, 0, 10, 1, 1, 10, 1, 0, 1, 1, 0, 0]))
+  print(water_area([0, 100, 0, 0, 10, 1, 1, 10, 1, 0, 1, 1, 0, 0])) # 39
+  print(water_area([0, 100, 0, 0, 10, 1, 1, 10, 1, 0, 1, 0, 0, 2, 0])) # 41
