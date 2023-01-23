@@ -1,4 +1,8 @@
 """
+Given an array of non-neg integers in which each int = height of a pillar of width = 1, write a function that determines the area of water that would be trapped between the pillars if it were to be poured over the top.
+
+TC: O(n)
+SC: O(1)
 """
 def water_area(heights):
   last, last_index = None, 0
