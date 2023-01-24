@@ -1,6 +1,8 @@
 """
 Given an array of non-neg integers in which each int = height of a pillar of width = 1, write a function that determines the area of water that would be trapped between the pillars if it were to be poured over the top.
 
+NOTE: this solution passes all AE test cases but has a logical flaw due to which the last edge case below (which I created independently) does not pass. This is addressed in solution 2.
+
 TC: O(n)
 SC: O(1)
 """
@@ -33,5 +35,5 @@ def water_area(heights):
 if __name__ == "__main__":
   # print(water_area([0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3]))
   # print(water_area([0, 8, 0, 0, 10, 0, 0, 10, 0, 0, 1, 1, 0, 3]))
-  print(water_area([0, 100, 0, 0, 10, 1, 1, 10, 1, 0, 1, 1, 0, 0])) # 39
-  print(water_area([0, 100, 0, 0, 10, 1, 1, 10, 1, 0, 1, 0, 0, 2, 0])) # 41
+  # print(water_area([0, 100, 0, 0, 10, 1, 1, 10, 1, 0, 1, 1, 0, 0])) # 39
+  print(water_area([0, 100, 0, 0, 10, 1, 1, 10, 1, 0, 1, 0, 0, 2, 0])) # 46
