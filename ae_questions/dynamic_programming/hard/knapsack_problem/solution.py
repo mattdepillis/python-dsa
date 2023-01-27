@@ -1,4 +1,12 @@
 """
+Given:
+  - an array of subarrays with 2 items per subarray: value and weight of an item, and
+  - a total weight capacity of items that a knapsack can hold,
+
+return the optimal value of items that can be held in the knapsack, along with an array of indices representing each included item's index in the original items array.
+
+TC: O(n*c) -- where n = number of items and c = total capacity
+SC: O(n*c) -- where n = number of items and c = total capacity
 """
 def recurse(scale, candidates, capacity_remaining, optimal):
   o = optimal
