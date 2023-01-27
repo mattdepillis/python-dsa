@@ -12,10 +12,11 @@ def determine_adjacent(i, j, matrix):
 def min_passes_of_matrix(matrix):
   passes = 0
   while True:
-    change, to_change = [], 0
+    change, to_change, has_negative = [], 0, False
     for i in range(len(matrix)):
       for j in range(len(matrix[i])):
         if matrix[i][j] >= 0: continue
+        has_negative = True
         adjacents = determine_adjacent(i, j, matrix)
         for pair in adjacents:
           if pair is None: continue
@@ -23,11 +24,13 @@ def min_passes_of_matrix(matrix):
             change += [[i, j]]
             to_change += 1
             break
-    if to_change < 1: break
+    if to_change < 1:
+      passes = passes if not has_negative else -1
+      break
     for pair in change: matrix[pair[0]][pair[1]] *= -1
     passes += 1
     
-  return -1 if not passes else passes
+  return passes
       
 
 if __name__ == "__main__":
@@ -37,10 +40,4 @@ if __name__ == "__main__":
     [3, 0, 0, -4, -1]
   ])) # 3
 
-  # v = min_passes_of_matrix([
-  #   [0, -1, -3, 2, 0],
-  #   [1, -2, -5, -1, -3],
-  #   [3, 0, 0, -4, -1]
-  # ])
-
-  # for row in v: print(row)
+  print(min_passes_of_matrix([[1]])) # 0
