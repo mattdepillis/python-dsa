@@ -1,12 +1,15 @@
 """
 Write a function that takes a matrix of integers -- the matrix rows can be of unequal length -- and return the min number of passes required to convert all negative integers in the matrix positive.
+
+TC: O(w * h) -- must iterate through all elements at least once
+SC: O(w * h) -- determining adjacents for each index
 """
 def determine_adjacent(i, j, matrix):
   return [
     [i, j - 1] if j > 0 else None, # left
     [i, j + 1] if j < len(matrix[i]) - 1 else None, # right
     [i - 1, j] if i > 0 else None, # up
-    [i + 1, j] if i < len(matrix) - 1 else None
+    [i + 1, j] if i < len(matrix) - 1 else None # down
   ]
 
 def min_passes_of_matrix(matrix):
