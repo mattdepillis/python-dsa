@@ -1,0 +1,78 @@
+"""
+
+"""
+import sys
+from os import path
+
+sys.path.append(path.dirname( path.dirname ( path.dirname ( path.abspath(__file__) ) ) ))
+
+from ae_bst import Tree as t
+
+def subtree_max_path_nodes(node):
+  l = r = [[], 0]
+  if not node: return l
+  list = [[node.value], node.value]
+  
+  if node.left: l = subtree_max_path_nodes(node.left)
+  if node.right: r = subtree_max_path_nodes(node.right)
+
+  greater_path = l if l[1] > r[1] else r
+
+  if len(greater_path[0]) > 0:
+    list[0] += greater_path[0]
+    list[1] += greater_path[1]
+
+  return list
+
+def max_path_sum(tree):
+  max_sum = current = None
+  l, r = list(reversed(subtree_max_path_nodes(tree.left)[0])), subtree_max_path_nodes(tree.right)
+
+  path = l + [tree.value] + r[0]
+
+  for value in path:
+    if current is None or value > max_sum: current = max_sum = value
+    else: current += value
+    if current > max_sum: max_sum = current
+
+  return max_sum
+
+
+if __name__ == "__main__":
+  tree = t()
+
+  # nodes = [
+  #   {"id": "1", "left": "2", "right": "3", "value": 1},
+  #   {"id": "3", "left": "6", "right": "7", "value": 3},
+  #   {"id": "7", "left": None, "right": None, "value": 7},
+  #   {"id": "6", "left": None, "right": None, "value": 6},
+  #   {"id": "2", "left": "4", "right": "5", "value": 2},
+  #   {"id": "5", "left": None, "right": None, "value": 5},
+  #   {"id": "4", "left": None, "right": None, "value": 4}
+  # ]
+
+  # nodes = [
+  #   {"id": "1", "left": "2", "right": "-1", "value": 1},
+  #   {"id": "-1", "left": None, "right": None, "value": -1},
+  #   {"id": "2", "left": None, "right": None, "value": 2}
+  # ]
+
+  # nodes = [
+  #   {"id": "1", "left": "-5", "right": "3", "value": 1},
+  #   {"id": "3", "left": None, "right": None, "value": 3},
+  #   {"id": "-5", "left": "6", "right": None, "value": -5},
+  #   {"id": "6", "left": None, "right": None, "value": 6}
+  # ]
+
+  nodes = [
+    {"id": "-2", "left": "-1", "right": None, "value": -2},
+    {"id": "-1", "left": "2", "right": "3", "value": -1},
+    {"id": "2", "left": None, "right": None, "value": 2},
+    {"id": "3", "left": None, "right": None, "value": 3}
+  ]
+
+  for node in nodes:
+    tree.insert_node(tree.root, node)
+
+  # print(tree.preorder_traversal(tree.root, list=[]))
+  print(max_path_sum(tree.root))
