@@ -8,34 +8,27 @@ sys.path.append(path.dirname( path.dirname ( path.dirname ( path.abspath(__file_
 
 from ae_bst import Tree as t
 
-def subtree_max_path_nodes(node):
-  l = r = [[], 0]
-  if not node: return l
-  list = [[node.value], node.value]
-  
-  if node.left: l = subtree_max_path_nodes(node.left)
-  if node.right: r = subtree_max_path_nodes(node.right)
+def recurse(tree, levels):
+  cont = iso = tree.value
+  if not tree.left and not tree.right: return [cont, iso]
+  left = right = [float('-inf'), float('-inf')]
+  if tree.left: left = recurse(tree.left, levels + 1)
+  if tree.right: right = recurse(tree.right, levels + 1)
 
-  greater_path = l if l[1] > r[1] else r
+  cont += max(left[0], right[0]) if not levels == 0 else left[0] + right[0]
+  iso = max(
+    left[1],
+    right[1],
+    left[0] + right[0] + tree.value,
+    tree.value,
+    left[0] + tree.value,
+    right[0] + tree.value
+  )
 
-  if len(greater_path[0]) > 0:
-    list[0] += greater_path[0]
-    list[1] += greater_path[1]
-
-  return list
+  return [cont, iso]
 
 def max_path_sum(tree):
-  max_sum = current = None
-  l, r = list(reversed(subtree_max_path_nodes(tree.left)[0])), subtree_max_path_nodes(tree.right)
-
-  path = l + [tree.value] + r[0]
-
-  for value in path:
-    if current is None or value > max_sum: current = max_sum = value
-    else: current += value
-    if current > max_sum: max_sum = current
-
-  return max_sum
+  return max(recurse(tree, 0))
 
 
 if __name__ == "__main__":
@@ -64,11 +57,20 @@ if __name__ == "__main__":
   #   {"id": "6", "left": None, "right": None, "value": 6}
   # ]
 
+  # nodes = [
+  #   {"id": "-2", "left": "-1", "right": None, "value": -2},
+  #   {"id": "-1", "left": "2", "right": "3", "value": -1},
+  #   {"id": "2", "left": None, "right": None, "value": 2},
+  #   {"id": "3", "left": None, "right": None, "value": 3}
+  # ]
+
   nodes = [
-    {"id": "-2", "left": "-1", "right": None, "value": -2},
-    {"id": "-1", "left": "2", "right": "3", "value": -1},
-    {"id": "2", "left": None, "right": None, "value": 2},
-    {"id": "3", "left": None, "right": None, "value": 3}
+    {"id": "2", "left": "-3", "right": "1", "value": 2},
+    {"id": "-3", "left": "6", "right": "5", "value": -3},
+    {"id": "6", "left": None, "right": "7", "value": 6},
+    {"id": "5", "left": None, "right": None, "value": 5},
+    {"id": "7", "left": None, "right": None, "value": 7},
+    {"id": "1", "left": None, "right": None, "value": 1}
   ]
 
   for node in nodes:
