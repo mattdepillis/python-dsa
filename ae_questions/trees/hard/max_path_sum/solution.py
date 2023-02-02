@@ -1,5 +1,9 @@
 """
+Write a function that takes a binary tree and returns its max path sum, which is a one-directional path of connected nodes in the tree.
 
+TC: O(n) -- traverse every node in the tree
+SC: O(log(n)) -- at most, you'll have log(n) recursive calls on the stack
+  - this is because, at a depth of 3 in a balanced binary tree (7 total nodes, for example), you'd have max 3 recursive calls on the stack at a given time. 3 ~= (approaches) log2(7).
 """
 import sys
 from os import path
