@@ -5,8 +5,39 @@ class Node:
     self.value = value
     self.next = None
 
+# list traversal helper function
+def traverse_list(head):
+  list = []
+  while head:
+    list.append(head.value)
+    head = head.next
+  return list
+
+
 def merge_linked_lists(one, two):
-  return one, two
+  curr_one, curr_two = one, two
+  head = one if one.value <= two.value else two
+
+  if head == one: curr_one = curr_one.next
+  else: curr_two = curr_two.next
+
+  prev, nxt = head, None
+
+  while curr_one or curr_two:
+    if curr_one and curr_one.value <= curr_two.value:
+      nxt = curr_one
+      curr_one = curr_one.next
+    else:
+      nxt = curr_two
+      curr_two = curr_two.next
+
+    prev.next = nxt
+    prev = nxt
+
+    # print(f"prev.value: {prev.value if prev else ''}, curr_one: {curr_one.value if curr_one else ''}, curr_one: {curr_two.value if curr_two else ''}")
+
+  return head
+
 
 if __name__ == "__main__":
   head_one = None
@@ -37,4 +68,5 @@ if __name__ == "__main__":
     if head_one: n.next = head_two
     head_two = n
 
-  print(merge_linked_lists(head_one, head_two))
+  merged = merge_linked_lists(head_one, head_two)
+  print(traverse_list(merged))
