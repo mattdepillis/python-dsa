@@ -1,4 +1,8 @@
 """
+Write a function that takes the heads of 2 sorted linked lists and returns a sorted, merged linked list in place (does not create a new linked list from the two list heads).
+
+TC: O(n + m) -- where n = nodes in list1 and m = nodes in list2
+SC: O(1) -- space complexity is constant - the algorithm does not init vars using memory proportional to n + m.
 """
 class Node:
   def __init__(self, value):
@@ -28,7 +32,6 @@ def merge_linked_lists(one, two):
       nxt, curr_one = curr_one, curr_one.next
     else:
       nxt, curr_two = curr_two, curr_two.next
-
     prev.next = prev = nxt
 
   if curr_one: prev.next = curr_one
