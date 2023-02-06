@@ -1,5 +1,8 @@
 """
+Given a non-empty array of subarrays, in which each subarray consists of three numbers -- width, depth, height -- representing the dimensions of a disk, write a function that stacks disks one on top of the other to maximize the height of the stack. The constraint: a disk stacked on top of another must be strictly smaller on all three dimensions than the disk below it.
 
+TC: O(n^2) -- must loop through the array n times, and with each loop, loop through all elements with the nth element as the starting smallest disk.
+SC: O(n) -- the max space `s` (and thereby `stack`) would hold in any given iteration is n elements.
 """
 def disk_stacking(disks):
   disks.sort()
