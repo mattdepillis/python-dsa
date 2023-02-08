@@ -2,7 +2,6 @@
 1
 """
 def interweaving_strings(one, two, three):
-  print(len(two))
   if len(three) == 0: return True
   longer, shorter = (one, two) if len(one) >= len(two) else (two, one)
   recurse = None
@@ -63,8 +62,14 @@ if __name__ == "__main__":
   #   "see"
   # )) # False
 
-  print(interweaving_strings_2(
+  # print(interweaving_strings(
+  #   "aacaaaa",
+  #   "aaabaaa",
+  #   "aaaacabaaaaaaa"
+  # ))
+
+  print(interweaving_strings(
     "aacaaaa",
     "aaabaaa",
-    "aaaacabaaaaaaa"
-  ))
+    "aaaabacaaaaaaa"
+  )) # True
