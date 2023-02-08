@@ -1,5 +1,11 @@
 """
+Write a function that takes a singly-linked list and an integer k, and shifts the list in-place by k places, returning the head node.
 
+Note:
+- shifting the list forward k=1 spots should make the list tail the head of the list.
+
+TC: O(n) -- we must loop through the list nodes a few times to determine length and which node to make the new list head
+SC: O(1) -- the space complexity is constant, as the list is shifted in-place
 """
 class Node:
   def __init__(self, value):
@@ -12,7 +18,7 @@ def traverse(curr, list):
     curr = curr.next
   return list
 
-
+# shift function
 def shift_linked_list(head, k):
   count, curr = 0, head
 
