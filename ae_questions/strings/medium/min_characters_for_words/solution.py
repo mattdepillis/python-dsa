@@ -1,8 +1,8 @@
 """
 Write a function that takes an array of words and returns the minimum number of characters needed to form all of the words.
 
-TC:
-SC:
+TC: O(n * m) -- where n = the number of words and m = length of the longest word
+SC: O(c) -- where c = the number of unique characters in the string
 """
 def min_characters_for_words(words):
   chars, l = {}, []
