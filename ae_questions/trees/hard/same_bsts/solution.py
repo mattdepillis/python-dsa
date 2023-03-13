@@ -40,7 +40,7 @@ def recurse(one, one_index, two, two_index, tree_value, values, direction):
 def same_bsts(one, two):
   if not len(one) == len(two) or not one[0] == two[0]:
     return False
-
+  
   one_stack, two_stack, common, vals = [0], [0], one[0], [one[0]]
   
   # return recurse(
