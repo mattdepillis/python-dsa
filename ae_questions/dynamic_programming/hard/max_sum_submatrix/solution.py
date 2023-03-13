@@ -1,9 +1,12 @@
 """
+Given a 2D array of potentially-unequal height and width containing integers, and a specific size representing the height and width of a potential submatrix, write a function that returns the max submatrix sum.
 
+TC: ```O(w * h)``` - must iterate through all elements in the matrix in (w * h)-proportional manner
+SC: ```O(w * h)``` - in the worst case, must store ```w * h``` number of elements in submatrix sums
 """
 def max_sum_submatrix(matrix, size):
   submatrix_sums, max_sum = [], float('-inf')
-  
+
   for i in range(len(matrix) - size + 1):
     submatrix_sums.append([])
     rows = range(i, i + size)
