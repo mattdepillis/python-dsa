@@ -1,19 +1,24 @@
 """
+If an array of integers represents a valid BST, write a function that takes 2 separate arrays and returns a boolean value representing the equality of the two trees.
 
+TC: O(n)
+SC: O(n)
 """
+# must be smaller than previous number and greater than or equal to min at this level
 def get_smaller_index(array, index, value):
   for i in range(index + 1, len(array)):
     if array[i] < array[index] and array[i] >= value:
       return i
   return -1
 
+# must be greater than or equal to prior number and smaller than max at this level
 def get_larger_index(array, index, value):
   for i in range(index + 1, len(array)):
     if array[i] >= array[index] and array[i] < value:
       return i
   return -1
 
-
+# min, max value set a value range for each recursive call to find left or right node
 def recurse(one, two, index_one, index_two, min_value, max_value):
   if index_one == -1 or index_two == -1: return index_one == index_two
   if one[index_one] != two[index_two]: return False
