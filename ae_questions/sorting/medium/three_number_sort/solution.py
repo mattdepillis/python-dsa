@@ -1,5 +1,11 @@
 """
+Given two arrays of integers:
+- first: all integers are guaranteed to be in the second
+- second: unique integers; represents the desired sorted order of ints in the first,
+sort the first array according to the order of the second. Do so in place (don't create a new array).
 
+TC: O(n) -- need to iterate through the array just twice
+SC: O(1)
 """
 def three_number_sort(array, order):
   placed = 0
