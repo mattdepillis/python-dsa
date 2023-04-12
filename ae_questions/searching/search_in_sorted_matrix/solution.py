@@ -1,13 +1,14 @@
 """
-Desc.
+Given a matrix of distinct integers and a target integer to find, return the indices of the target integer in the matrix. Each column and row of the matrix are sorted. If the target cannot be found, return [-1, -1].
 
-TC:
-SC:
+TC: somewhere in between O(n + m) and O(n * m)
+SC: O(1)
 """
 def search_in_sorted_matrix(matrix, target):
   for i in reversed(range(len(matrix))):
     row_length = len(matrix[i])
-    if target < matrix[i][0] or target > matrix[i][row_length - 1]: continue
+    if target < matrix[i][0]: continue
+    elif target > matrix[i][row_length - 1]: break
     for j in range(len(matrix[i])):
       if target == matrix[i][j]: return [i, j]
   return [-1, -1]
