@@ -1,5 +1,10 @@
 """
+Given a matrix that represents a sudoku board, write a function to resolve the board.
+Slots in the board = 0 must be resolved to a digit 1-9.
+You may assume that each board does have a unique solution.
 
+TC: O(1) -- set number of possibilities (9x9 grid)
+SC: O(1) -- set number of possibilities (9x9 grid)
 """
 
 def is_valid(board, row_index, col_index, digit):
