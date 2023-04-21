@@ -39,13 +39,14 @@ def solve(board, row, col):
   for i in possible_values:
     # TODO: how to make a shallow copy of board?
     b = board
+    # b = copy.copy(board)
     b[row][col] = i
     filled_board, success = solve(
       b,
       row if col < 8 else row + 1,
       col + 1 if col < 8 else 0
     )
-    print(f"row,col: {row},{col}, value tried: {i}")
+    print(f"possibilities: {possible_values}, row,col: {row},{col}, value tried: {i}")
     if success:
       return filled_board, True
   return board, False
