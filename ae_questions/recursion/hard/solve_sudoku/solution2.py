@@ -3,6 +3,11 @@
 """
 
 def is_valid(board, row_index, col_index, digit):
+  """
+  Checks the row, column, and square for the target digit.
+  Returns True if it's valid (digit isn't already found).
+  """
+
   if digit in board[row_index]: return False
   if digit in map(lambda r: r[col_index], board): return False
 
@@ -19,6 +24,13 @@ def is_valid(board, row_index, col_index, digit):
 
 
 def solve(board, row, col):
+  """
+  Recursively solves the board.
+  If a number exists in the [row][col] spot, recurse to next place.
+  Else, loop through all ints 1-9 and check whether a given digit is valid.
+  If no solution found at [row][col], will backtrack to try different digit combinations. 
+  """
+
   if row == 9: return board, True
 
   if board[row][col] != 0: return solve(
@@ -39,6 +51,7 @@ def solve(board, row, col):
   board[row][col] = 0
   return False
 
+# main function - run initial solve and return the board
 def solve_sudoku(board):
   solve(board, 0, 0)
   return board
