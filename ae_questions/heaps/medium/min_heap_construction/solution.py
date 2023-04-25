@@ -8,6 +8,8 @@ class MinHeap:
 
   def buildHeap(self, array):
     """
+    Builds the heap, represented as a list, from an unsorted list.
+    Finds the last current parent node and sifts all parents down.
     """
     last_parent = (len(array) - 2) // 2
     for i in reversed(range(0, last_parent + 1)):
@@ -16,6 +18,7 @@ class MinHeap:
 
   def siftDown(self, i, array):
     """
+    Recursively sifts a parent node down if it's greater than its smallest child.
     """
     if i > (len(array) - 2) // 2: return array
 
