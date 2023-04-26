@@ -1,27 +1,26 @@
 """
 
 """
+
 def best_seats(array):
-  if not 0 in array: return -1
+  last_taken = most_consecutive = 0
+  best_seat = None
 
-  index_best = array.index(0)
+  for i in range(last_taken, len(array)):
+    if array[i] != 0:
+      if array[i - 1] == 0 and i - last_taken > most_consecutive:
+        most_consecutive = i - last_taken
+        best_seat = last_taken + (i - last_taken) // 2
+      last_taken = i
 
-  curr = num_best = 0
-  for i in range(index_best, len(array) - 1):
-    print(f"i: {i}, curr: {curr}, num_best: {num_best}, index_best: {index_best}, ")
-    if array[i] == 1: curr = 0
-    elif array[i] == 0 and array[i + 1] == 0:
-      curr += 1
-    print(f"curr now: {curr}")
-    if curr > num_best:
-      num_best, index_best = curr, i
-  return index_best
+  return -1 if best_seat is None else best_seat
 
 
 if __name__ == "__main__":
-  # print(best_seats(
-  #   [1, 0, 1, 0, 0, 0, 1]
-  # ))
+  print(best_seats(
+    [1, 0, 1, 0, 0, 0, 1]
+    # [1]
+  ))
 
   print(best_seats(
     [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1]
