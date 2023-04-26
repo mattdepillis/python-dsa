@@ -1,5 +1,11 @@
 """
+Given a row of seats in a theater in which the end seats are always taken, determine the best seat (the one with the most space surrounding it) to sit in. Space is denoted by 0s.
+Notes:
+- if there are equally-optimal seats, choose the one closest to the left.
+- if you can't find a seat, return -1.
 
+TC: O(n) -- one-pass solution
+SC: O(1) -- consistent variable assignment for any n values
 """
 
 def best_seats(array):
