@@ -38,7 +38,6 @@ class MinHeap:
 
   def siftUp(self, i):
     parent_index = math.floor((i - 1) // 2)
-
     if self.heap[i] < self.heap[parent_index]:
       self.heap[i], self.heap[parent_index] = self.heap[parent_index], self.heap[i]
       self.siftUp(parent_index)
@@ -47,10 +46,12 @@ class MinHeap:
     return self.heap[0]
 
   def remove(self):
-    last = len(self.heap) - 1 
+    to_remove = self.heap[0]
+    last = len(self.heap) - 1
     self.heap[0], self.heap[last] = self.heap[last], self.heap[0]
     self.heap.pop(last)
     self.siftDown(0)
+    return to_remove
 
   def insert(self, value):
     self.heap.append(value)
