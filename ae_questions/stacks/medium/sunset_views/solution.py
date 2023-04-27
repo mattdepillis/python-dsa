@@ -1,5 +1,8 @@
 """
+Given an array of buildings and a direction all the buildings face + a sun is setting, return an array of indices representing the buildings in the array that can see the sunset in that given direction.
 
+TC: O(n) - possibly reverse range, and loop through all indices once
+SC: O(n) - could store a maximum of n elements in stack
 """
 
 def sunset_views(buildings, direction):
