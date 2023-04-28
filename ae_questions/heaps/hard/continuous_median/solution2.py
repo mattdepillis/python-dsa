@@ -36,18 +36,14 @@ class ContinuousMedianHandler:
     return False
  
   def sift_up(self, heap):
-    """ Sifts each element in the heap up. """
-    for i in range(1, len(heap)):
-      """
-      NOTE: NOT time-optimal method.
-      Should sift JUST appended number up, and NEW root after node removal down.
-      """
-      while i > 0:
-        parent_index = (i - 1) // 2
-        if self.swap_with_parent(heap, i, parent_index):
-          heap[i], heap[parent_index] = heap[parent_index], heap[i]
-          i = parent_index
-        else: break
+    """ Sifts a newly-added node up the heap, if needed. """
+    i = len(heap) - 1
+    while i > 0:
+      parent_index = (i - 1) // 2
+      if self.swap_with_parent(heap, i, parent_index):
+        heap[i], heap[parent_index] = heap[parent_index], heap[i]
+        i = parent_index
+      else: break
 
   def sift_heaps(self):
     """ Setup function - invokes self.sift_up(). """
