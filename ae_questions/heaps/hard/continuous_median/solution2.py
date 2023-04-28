@@ -4,7 +4,9 @@ Write a ContinuousMedianHandler class. This class should:
 - should offer instant retrieval of the numbers' median
 - should use the heap data structure to achieve this
 
-TC (insert()): O(nlog(n)) -- in this first iteration, sift_up for each index in the heap on insert (unoptimal)
+TC (insert()): O(log(n))
+  - only sift up the inserted number
+  - if we need to remove a number from the longer heap, sifting both new values up and down is + 2 max O(log(n)) operations
 SC: O(n) -- store n numbers
 """
 class ContinuousMedianHandler:
@@ -24,7 +26,9 @@ class ContinuousMedianHandler:
     """ Balances the length of the heaps when difference > 1. """
     (longer, shorter) = self.determine_longer()
     shorter.append(longer.pop(0))
-    self.sift_heaps()
+
+    self.sift_up(shorter)
+    self.sift_down(longer)
   
   def swap_with_parent(self, heap, child, parent):
     """
@@ -45,20 +49,42 @@ class ContinuousMedianHandler:
         i = parent_index
       else: break
 
-  def sift_heaps(self):
-    """ Setup function - invokes self.sift_up(). """
-    for heap in [self.min_heap, self.max_heap]:
-      self.sift_up(heap)
+  """ lambda to return bool: value less than another"""
+  first_is_smaller = lambda self, x, y: x < y
+
+  def find_min_child_index(self, heap, children):
+    """ Finds the index of the parent node's minimum child"""
+    if children[0] > len(heap) - 1: return None
+
+    return children[0] if (
+      children[1] > len(heap) - 1
+      or self.first_is_smaller(heap[children[0]], heap[children[1]])
+    ) else children[1]
+
+  def sift_down(self, heap):
+    """  Sifts the root down, if needed, whenever there is a change in the heap root value. """
+    i = 0
+    while i < len(heap) - 1:
+      min_child_idx = self.find_min_child_index(heap, [(2 * i) + 1, (2 * i) + 2])
+      if not min_child_idx: break
+      
+      if self.swap_with_parent(heap, min_child_idx, i):
+        heap[i], heap[min_child_idx] = heap[min_child_idx], heap[i]
+        i = min_child_idx
+      else: break
 
   def insert(self, number):
     """ Handles insertion into a heap. """
     if not len(self.max_heap): self.max_heap.append(number)
     else:
-      if number < self.max_heap[0]: self.max_heap.append(number)
-      else: self.min_heap.append(number)
+      if number < self.max_heap[0]:
+        self.max_heap.append(number)
+        heap_to_sift = self.max_heap
+      else:
+        self.min_heap.append(number)
+        heap_to_sift = self.min_heap
         
-      self.sift_heaps()
-      # print(f"BEFORE: max_heap (smaller): {self.max_heap}, min_heap (larger): {self.min_heap}")
+      self.sift_up(heap_to_sift)
 
       if abs(len(self.max_heap) - len(self.min_heap)) > 1:
         self.balance_heap_lengths()
