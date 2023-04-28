@@ -1,5 +1,11 @@
 """
+Write a ContinuousMedianHandler class. This class should:
+- support continuous insertion of numbers
+- should offer instant retrieval of the numbers' median
+- should use the heap data structure to achieve this
 
+TC (insert()): O(nlog(n)) -- in this first iteration, sift_up for each index in the heap on insert (unoptimal)
+SC: O(n) -- store n numbers
 """
 class ContinuousMedianHandler:
   def __init__(self):
