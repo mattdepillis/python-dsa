@@ -14,7 +14,9 @@ Notes:
 TC (all methods): O(1) -- given the maxSize of the cache stays constant, all operations will be of roughly the same time complexity.
 SC: O(1) -- max-size of the cache is constant.
 """
+
 class Node:
+  """ Class to represent LinkedList nodes """
   def __init__(self, k, v):
     self.key = k
     self.value = v
@@ -26,12 +28,14 @@ class LRUCache:
     self.root = None
 
   def traverse(self):
+    """ Traverses the LL and prints all k,v pairs. Used for visibility into LL order at a given time. """
     curr = self.root
     while curr:
       print(curr.key, curr.value)
       curr = curr.next
 
   def trim_cache(self):
+    """ Trims the cache if needed to ensure it complies with max cache size. """
     curr, count = self.root, 0
     while curr.next:
       count += 1
@@ -39,6 +43,7 @@ class LRUCache:
       else: curr = curr.next
 
   def check_existing(self, key):
+    """ Checks whether a node with the given key already exists in the cache. """
     curr = self.root
     while curr:
       if curr.key == key: return curr
@@ -46,6 +51,11 @@ class LRUCache:
     return None
 
   def insertKeyValuePair(self, key, value):
+    """
+    Inserts a node into the cache.
+    Will overwrite node value if a node with the provided key exists.
+    Else, will insert a node as root. If necessary, will trim the cache to the max size after insertion.
+    """
     if not self.root:
       self.root = Node(key, value)
     else:
@@ -59,6 +69,10 @@ class LRUCache:
         self.trim_cache()
 
   def reorder_cache(self, key):
+    """
+    Reorders the cache items.
+    Used in tandem with getValueFromKey, as that node must move to root.
+    """
     curr = self.root
     while curr.next:
       if curr.next.key == key:
@@ -69,6 +83,7 @@ class LRUCache:
       curr = curr.next
 
   def getValueFromKey(self, key):
+    """ Gets the value at a given node with the specified key, if found. """
     curr = self.root
     while curr:
       if curr.key == key:
@@ -79,6 +94,7 @@ class LRUCache:
     return None
 
   def getMostRecentKey(self):
+    """ Retrieves the root node's key. """
     return self.root.key
 
 
