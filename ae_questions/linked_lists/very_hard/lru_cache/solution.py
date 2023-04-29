@@ -35,12 +35,14 @@ class LRUCache:
       self.trim_cache()
 
   def getValueFromKey(self, key):
-    # Write your code here.
-    pass
+    curr = self.root
+    while curr:
+      if curr.key == key: return curr.value
+      curr = curr.next
+    return None
 
   def getMostRecentKey(self):
-    # Write your code here.
-    pass
+    return self.root.key
 
 
 if __name__ == "__main__":
@@ -51,3 +53,58 @@ if __name__ == "__main__":
   c.insertKeyValuePair("a", 1)
   c.insertKeyValuePair("g", 7)
   c.traverse()
+  x = c.getValueFromKey("f")
+  print(x)
+  print(c.getMostRecentKey())
+
+
+  {
+    "arguments": ["b", 2],
+    "method": "insertKeyValuePair",
+    "output": null
+  },
+  {
+    "arguments": ["a", 1],
+    "method": "insertKeyValuePair",
+    "output": null
+  },
+  {
+    "arguments": ["c", 3],
+    "method": "insertKeyValuePair",
+    "output": null
+  },
+  {
+    "arguments": [],
+    "method": "getMostRecentKey",
+    "output": "c"
+  },
+  {
+    "arguments": ["a"],
+    "method": "getValueFromKey",
+    "output": 1
+  },
+  {
+    "arguments": [],
+    "method": "getMostRecentKey",
+    "output": "c"
+  },
+  {
+    "arguments": ["d", 4],
+    "method": "insertKeyValuePair",
+    "output": null
+  },
+  {
+    "arguments": ["b"],
+    "method": "getValueFromKey",
+    "output": null
+  },
+  {
+    "arguments": ["a", 5],
+    "method": "insertKeyValuePair",
+    "output": null
+  },
+  {
+    "arguments": ["a"],
+    "method": "getValueFromKey",
+    "output": 5
+  }
