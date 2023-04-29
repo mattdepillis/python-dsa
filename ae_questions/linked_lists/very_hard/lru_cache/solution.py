@@ -34,6 +34,16 @@ class LRUCache:
       self.root.next = nxt
       self.trim_cache()
 
+  def reorder_cache(self, key):
+    curr = self.root
+    while curr.next:
+      if curr.next.key == key:
+        new_root = curr.next
+        new_root.next, curr.next = self.root, new_root.next
+        self.root = new_root
+        return
+      curr = curr.next
+
   def getValueFromKey(self, key):
     curr = self.root
     while curr:
