@@ -1,6 +1,18 @@
 """
+Implement a class for a LRU (least-recently used) cache.
+The class should support the following methods, each with constant runtime:
+- inserting k,v pairs
+- retrieving value from key
+- retrieve most recently used key
 
+Notes:
+- the size of the cache shouldn't exceed ```self.maxSize```
+- if it does, the least-recently used item in the cache should be evicted
+- if a key is inserted but it already exists in the cache, the new value should overwrite the old
+- a cache node jumps to the root of the LL when added or its key is read.
 
+TC (all methods): O(1) -- given the maxSize of the cache stays constant, all operations will be of roughly the same time complexity.
+SC: O(1) -- max-size of the cache is constant.
 """
 class Node:
   def __init__(self, k, v):
