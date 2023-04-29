@@ -26,6 +26,13 @@ class LRUCache:
       if count == 3: curr.next = None
       else: curr = curr.next
 
+  def check_existing(self, key):
+    curr = self.root
+    while curr:
+      if curr.key == key: return curr
+      curr = curr.next
+    return None
+
   def insertKeyValuePair(self, key, value):
     if not self.root:
       self.root = Node(key, value)
