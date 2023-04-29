@@ -23,7 +23,7 @@ class LRUCache:
     curr, count = self.root, 0
     while curr.next:
       count += 1
-      if count == 3: curr.next = None
+      if count == self.maxSize: curr.next = None
       else: curr = curr.next
 
   def check_existing(self, key):
@@ -37,9 +37,14 @@ class LRUCache:
     if not self.root:
       self.root = Node(key, value)
     else:
-      nxt, self.root = self.root, Node(key, value)
-      self.root.next = nxt
-      self.trim_cache()
+      prev = self.check_existing(key)
+      if prev:
+        prev.value = value
+        self.reorder_cache(prev.key)
+      else:
+        nxt, self.root = self.root, Node(key, value)
+        self.root.next = nxt
+        self.trim_cache()
 
   def reorder_cache(self, key):
     curr = self.root
@@ -54,7 +59,10 @@ class LRUCache:
   def getValueFromKey(self, key):
     curr = self.root
     while curr:
-      if curr.key == key: return curr.value
+      if curr.key == key:
+        v = curr.value
+        self.reorder_cache(key)
+        return v
       curr = curr.next
     return None
 
@@ -63,65 +71,73 @@ class LRUCache:
 
 
 if __name__ == "__main__":
-  c = LRUCache(3)
-  c.insertKeyValuePair("d", 4)
-  c.insertKeyValuePair("c", 3)
-  c.insertKeyValuePair("b", 2)
+  """ Test Case 1 """
+  # c = LRUCache(3)
+  # c.insertKeyValuePair("d", 4)
+  # c.insertKeyValuePair("c", 3)
+  # c.insertKeyValuePair("b", 2)
+  # print(c.getValueFromKey("d"))
+  # c.insertKeyValuePair("c", 3)
+  # c.traverse() # this should return c -> b -> d
+
+  """ Test Case 2 """
+  c = LRUCache(1)
   c.insertKeyValuePair("a", 1)
-  c.insertKeyValuePair("g", 7)
+  print(c.getValueFromKey("a"))
+  c.insertKeyValuePair("a", 3)
+  print(c.getValueFromKey("a"))
+  # c.traverse()
+  c.insertKeyValuePair("b", 5)
   c.traverse()
-  x = c.getValueFromKey("f")
-  print(x)
-  print(c.getMostRecentKey())
 
 
-  {
-    "arguments": ["b", 2],
-    "method": "insertKeyValuePair",
-    "output": null
-  },
-  {
-    "arguments": ["a", 1],
-    "method": "insertKeyValuePair",
-    "output": null
-  },
-  {
-    "arguments": ["c", 3],
-    "method": "insertKeyValuePair",
-    "output": null
-  },
-  {
-    "arguments": [],
-    "method": "getMostRecentKey",
-    "output": "c"
-  },
-  {
-    "arguments": ["a"],
-    "method": "getValueFromKey",
-    "output": 1
-  },
-  {
-    "arguments": [],
-    "method": "getMostRecentKey",
-    "output": "c"
-  },
-  {
-    "arguments": ["d", 4],
-    "method": "insertKeyValuePair",
-    "output": null
-  },
-  {
-    "arguments": ["b"],
-    "method": "getValueFromKey",
-    "output": null
-  },
-  {
-    "arguments": ["a", 5],
-    "method": "insertKeyValuePair",
-    "output": null
-  },
-  {
-    "arguments": ["a"],
-    "method": "getValueFromKey",
-    "output": 5
-  }
+  # {
+  #   "arguments": ["b", 2],
+  #   "method": "insertKeyValuePair",
+  #   "output": null
+  # },
+  # {
+  #   "arguments": ["a", 1],
+  #   "method": "insertKeyValuePair",
+  #   "output": null
+  # },
+  # {
+  #   "arguments": ["c", 3],
+  #   "method": "insertKeyValuePair",
+  #   "output": null
+  # },
+  # {
+  #   "arguments": [],
+  #   "method": "getMostRecentKey",
+  #   "output": "c"
+  # },
+  # {
+  #   "arguments": ["a"],
+  #   "method": "getValueFromKey",
+  #   "output": 1
+  # },
+  # {
+  #   "arguments": [],
+  #   "method": "getMostRecentKey",
+  #   "output": "c"
+  # },
+  # {
+  #   "arguments": ["d", 4],
+  #   "method": "insertKeyValuePair",
+  #   "output": null
+  # },
+  # {
+  #   "arguments": ["b"],
+  #   "method": "getValueFromKey",
+  #   "output": null
+  # },
+  # {
+  #   "arguments": ["a", 5],
+  #   "method": "insertKeyValuePair",
+  #   "output": null
+  # },
+  # {
+  #   "arguments": ["a"],
+  #   "method": "getValueFromKey",
+  #   "output": 5
+  # }
