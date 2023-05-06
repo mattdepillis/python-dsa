@@ -22,11 +22,29 @@ def construct_local_tree(nodes):
     tree_nodes[id] = new_node
   return root
 
-def find_total_tree_sum(tree):
-  return tree
+
+def find_total_tree_sum(node, sum):
+  if node.left: sum = find_total_tree_sum(node.left, sum)
+  if node.right: sum = find_total_tree_sum(node.right, sum)
+
+  return sum + node.value
+
+def recurse(node, tree_sum, child_sum):
+  if node.left:
+    split, split_value, child_sum = recurse(node.left, tree_sum, child_sum)
+    if split: return split, split_value, child_sum + node.value
+  if node.right:
+    split, split_value, child_sum = recurse(node.right, tree_sum, child_sum)
+    if split: return split, split_value, child_sum + node.value
+  
+  if child_sum + node.value == .5 * tree_sum:
+    return True, child_sum + node.value, child_sum + node.value
+  return False, None, child_sum + node.value
 
 def split_binary_tree(tree):
-  return tree
+  sum = find_total_tree_sum(tree, 0)
+  split_sum = recurse(tree, sum, 0)
+  return split_sum[1] or 0
 
 
 if __name__ == "__main__":
@@ -42,3 +60,5 @@ if __name__ == "__main__":
   ]
 
   root = construct_local_tree(nodes)
+  split_sum = split_binary_tree(root)
+  print(split_sum)
