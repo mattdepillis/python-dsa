@@ -1,6 +1,8 @@
 """
+Given a linked list, return the middle node. If there are 2 candidates for the middle node, return the second.
 
-
+TC: O(n) - go through all nodes at least once.
+SC: O(1) - constant memory, no matter the list size
 """
 class LinkedList:
   def __init__(self, value):
