@@ -9,7 +9,7 @@ class BinaryTree:
       self.right = right
 
 def construct_local_tree(nodes):
-  """ """
+  """ Constructs a tree from a list of node objects. Returns the tree root"""
   tree_nodes, root = {}, None
   for i in reversed(range(len(nodes))):
     node = nodes[i]
@@ -25,19 +25,23 @@ def construct_local_tree(nodes):
 
 
 def find_total_tree_sum(node, sum):
-  """ """
+  """ Recursively finds the total sum of the tree, starting from root. """
   if node.left: sum = find_total_tree_sum(node.left, sum)
   if node.right: sum = find_total_tree_sum(node.right, sum)
 
   return sum + node.value
 
 def can_split_at_node(value, value_children, total_sum):
-  """ """
+  """ Determines whether or not a node and the sum of its cumulative children could form a split tree. """
   return value + value_children == .5 * total_sum
 
 
 def recurse(node, tree_sum):
-  """ """
+  """
+  Recurses down the tree to find a given node at which the tree could be split.
+  If ```split``` is True from a call to children, just returns those values.
+  Else, will determine whether or not this node could be included in a split.
+  """
   child_sum_left = child_sum_right = 0
 
   if node.left:
@@ -57,8 +61,9 @@ def recurse(node, tree_sum):
 
   return False, None, child_sum_left + child_sum_right + node.value
 
+
 def split_binary_tree(tree):
-  """ """
+  """ Handler method - finds sum and split_sum through helper functions. """
   sum = find_total_tree_sum(tree, 0)
   split_sum = recurse(tree, sum)
   return split_sum[1] or 0
