@@ -7,8 +7,25 @@ class LinkedList:
     self.value = value
     self.next = None
 
-def middle_node(linked_list):
-  return linked_list
+def find_list_length(root):
+  count = 0
+  while root:
+    count += 1
+    root = root.next
+  return count
+
+def get_middle_node(root, middle_index):
+  idx = 0
+  while idx < middle_index:
+    root = root.next
+    idx += 1
+  return root
+
+def middle_node(root):
+  list_length = find_list_length(root)
+  middle_index = list_length // 2
+
+  return get_middle_node(root, middle_index)
 
 
 def generate_list(nodes):
@@ -38,4 +55,4 @@ if __name__ == "__main__":
   root = generate_list(nodes)
   
   middle = middle_node(root)
-  print('m', middle)
+  print('m', middle.value)
