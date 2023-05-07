@@ -1,5 +1,9 @@
 """
+Given a binary tree with at least one node, write a function that determines whether or not that binary tree could be split into 2 trees of equal total value by removing an edge.
+Return the split sum if this is possible. If not, return 0.
 
+TC: O(n) -- must iterate through all nodes once to get total sum, and then once to figure out whether or not tree can be split.
+SC: O(d) -- proportional to the depth of the tree, as recurse() will have max d recursive calls on the stack at a given time.
 """
 class BinaryTree:
   """ Binary tree node class. """
