@@ -9,6 +9,7 @@ class BinaryTree:
       self.right = right
 
 def construct_local_tree(nodes):
+  """ """
   tree_nodes, root = {}, None
   for i in reversed(range(len(nodes))):
     node = nodes[i]
@@ -24,26 +25,42 @@ def construct_local_tree(nodes):
 
 
 def find_total_tree_sum(node, sum):
+  """ """
   if node.left: sum = find_total_tree_sum(node.left, sum)
   if node.right: sum = find_total_tree_sum(node.right, sum)
 
   return sum + node.value
 
-def recurse(node, tree_sum, child_sum):
+def can_split_at_node(value, value_children, total_sum):
+  """ """
+  return value + value_children == .5 * total_sum
+
+
+def recurse(node, tree_sum):
+  """ """
+  child_sum_left = child_sum_right = 0
+
   if node.left:
-    split, split_value, child_sum = recurse(node.left, tree_sum, child_sum)
-    if split: return split, split_value, child_sum + node.value
+    split, split_value, child_sum_left = recurse(node.left, tree_sum)
+    if split: return split, split_value, child_sum_left
   if node.right:
-    split, split_value, child_sum = recurse(node.right, tree_sum, child_sum)
-    if split: return split, split_value, child_sum + node.value
+    split, split_value, child_sum_right = recurse(node.right, tree_sum)
+    if split: return split, split_value, child_sum_right
   
-  if child_sum + node.value == .5 * tree_sum:
-    return True, child_sum + node.value, child_sum + node.value
-  return False, None, child_sum + node.value
+  if can_split_at_node(node.value, child_sum_left, tree_sum):
+    return True, child_sum_left + node.value, child_sum_left + node.value
+  if can_split_at_node(node.value, child_sum_right, tree_sum):
+    return True, child_sum_right + node.value, child_sum_left + node.value
+  if can_split_at_node(node.value, sum([child_sum_left, child_sum_right]), tree_sum):
+    s = sum([child_sum_left, child_sum_right]) + node.value
+    return True, s, s
+
+  return False, None, child_sum_left + child_sum_right + node.value
 
 def split_binary_tree(tree):
+  """ """
   sum = find_total_tree_sum(tree, 0)
-  split_sum = recurse(tree, sum, 0)
+  split_sum = recurse(tree, sum)
   return split_sum[1] or 0
 
 
@@ -58,6 +75,18 @@ if __name__ == "__main__":
     {"id": "5", "left": None, "right": None, "value": 5},
     {"id": "7", "left": None, "right": None, "value": 7}
   ]
+  # nodes = [
+  #   {"id": "1", "left": "9", "right": "20", "value": 1},
+  #   {"id": "9", "left": "5", "right": "2", "value": 9},
+  #   {"id": "20", "left": "30", "right": "10", "value": 20},
+  #   {"id": "30", "left": None, "right": None, "value": 30},
+  #   {"id": "10", "left": "35", "right": "25", "value": 10},
+  #   {"id": "35", "left": None, "right": None, "value": 35},
+  #   {"id": "25", "left": None, "right": None, "value": 25},
+  #   {"id": "5", "left": None, "right": None, "value": 5},
+  #   {"id": "2", "left": "3", "right": None, "value": 2},
+  #   {"id": "3", "left": None, "right": None, "value": 3}
+  # ]
 
   root = construct_local_tree(nodes)
   split_sum = split_binary_tree(root)
