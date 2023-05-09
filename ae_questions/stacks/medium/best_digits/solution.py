@@ -7,15 +7,15 @@ SC: O(n) -- create a stack of size n
 def find_max_and_index(stack_subset):
   max = idx = -1
   for i in range(len(stack_subset)):
-    if stack_subset[i] > max:
+    if stack_subset[i] > str(max):
       max, idx = stack_subset[i], i
   return max, idx
 
 def best_digits(number, remove):
-  shortened, stack = "", [int(char) for char in number]
+  shortened, stack = "", [char for char in number]
   digits_to_add = len(stack) - remove
 
-  while digits_to_add > 0 and digits_to_add < len(stack):
+  while 0 < digits_to_add < len(stack):
     last_potential_index = len(stack) - digits_to_add + 1
     max, idx = find_max_and_index(stack[:last_potential_index])
     shortened += str(max)
@@ -24,7 +24,7 @@ def best_digits(number, remove):
     digits_to_add -= 1
 
   if digits_to_add > 0:
-    for i in stack: shortened += str(i)
+    for i in stack: shortened += i
 
   return shortened
 
