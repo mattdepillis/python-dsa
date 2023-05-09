@@ -1,7 +1,7 @@
 """
 Given a string representation of a positive integer, and an integer representing the number of characters to remove from the string representation, write a function that will return the largest possible value of an int with ```len(original_string) - chars_to_remove``` characters. Original ordering of the characters cannot change in the returned result.
 
-TC: O(n) -- loop through all digits in the stack at least once, + create stack
+TC: O(n) + some -- loop through all digits in the stack at least once, + create stack. NOTE: must loop through subset of list, so this isn't optimal
 SC: O(n) -- create a stack of size n
 """
 def find_max_and_index(stack_subset):
