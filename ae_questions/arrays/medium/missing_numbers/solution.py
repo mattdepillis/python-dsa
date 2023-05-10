@@ -2,8 +2,10 @@
 
 """
 def missing_numbers(nums):
+  missing, sorted_to = [], 0
+
   for _ in range(2): nums.append(None)
-  sorted_to = 0
+
   for _ in range(len(nums)):
     i = sorted_to
 
@@ -15,7 +17,10 @@ def missing_numbers(nums):
 
     if nums[i] is None: continue
     nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
-  return nums
+  
+  for i in range(len(nums)):
+    if nums[i] is None: missing.append(i + 1)
+  return missing
 
 
 if __name__ == "__main__":
