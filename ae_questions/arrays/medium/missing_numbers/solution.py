@@ -1,5 +1,8 @@
 """
+Given an unordered list of integers in the range of [1, n], where n is the length of the list + 2, find the two numbers that are missing from the current list of length n - 2.
 
+TC: O(n) -- need to loop through the list n times to take care of every value
+SC: O(1) -- sorts in-place
 """
 def missing_numbers(nums):
   missing, sorted_to = [], 0
