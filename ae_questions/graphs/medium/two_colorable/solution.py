@@ -1,5 +1,8 @@
 """
+Given an adjacency list of edges of a graph, write a function that returns whether or not the graph is two-colorable (each node assigned a "color", and no two connected nodes share the same color assignment).
 
+TC: O(v + e) -- loop through all vertices and their edges
+SC: O(v) -- store all vertices
 """
 def two_colorable(edges):
   vertices, colors = {}, ["bl", "gr"]
