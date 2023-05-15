@@ -1,6 +1,8 @@
 """
+Write a function that performs binary search on an array of distinct integers, but with the caveat that the numbers are shifted x spots such that the min and max may not be at the beg/end of the array. Return the index of the target number if found, and -1 if not.
 
-
+TC: O(log(n)) -- roughly log(n) iterations through the list to find a val
+SC: O(1) -- done in-place
 """
 def is_between_middle_and_end(array, target, middle, end):
   """
