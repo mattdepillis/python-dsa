@@ -16,31 +16,31 @@ def traverse(head):
   return order
 
 def rearrange_linked_list(head, k):
-  start = curr = head
-  prev = None
-  unordered_end = ordered_start = ordered_end = None
+  start = head
+  curr = head.next
+  last_unordered = last_ordered = head
   while curr.next:
-    print('c', curr.value, curr.next.value)
-    if curr.value >= k:
-      two_next = curr.next.next
-      one_next = curr.next
+    nxt = curr.next
+    print(f"curr: {curr.value if curr else None}, lo: {last_ordered.value if last_ordered else None}, lu: {last_unordered.value if last_unordered else None}")
+    if curr.value < k:
+      if last_ordered == last_unordered:
+        start = last_unordered = curr
+        curr.next = last_ordered
+      else:
+        first_ordered = last_unordered.next
+        curr.next = first_ordered
+        last_unordered.next = curr
+        last_unordered = curr
 
-      one_next.next = curr
-      curr.next = two_next
-
-      print(f"one_next: {one_next.value if one_next else None}, curr: {curr.value if curr else None}, two_next: {two_next.value if two_next else None}")
-
-      if prev: prev.next = one_next
-      if curr == start: start = one_next
-      
-      prev = one_next
+      last_ordered.next = nxt
+      curr = last_ordered.next
     else:
-      prev = curr
-      curr = curr.next
+      last_ordered = curr
+    
+      curr = nxt
 
-    if unordered_end: print(F"unordered_end: {unordered_end.value}")
+      
 
-  print(unordered_end.value)
   return start
 
 
