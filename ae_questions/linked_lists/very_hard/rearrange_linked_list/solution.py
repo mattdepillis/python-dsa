@@ -17,9 +17,7 @@ def traverse(head):
 
 def swap(prev, curr, next):
   new_next = next.next
-  prev.next = next
-  next.next = curr
-  curr.next = new_next
+  prev.next, next.next, curr.next = next, curr, new_next
 
   # previous next will now be previous to current node
   return next
@@ -30,9 +28,18 @@ def sort_in_order(curr, prev):
       prev = swap(prev, curr, curr.next)
     else: break
 
+def get_max_value(curr):
+  list_max = float('-inf')
+  while curr:
+    if curr.value > list_max: list_max = curr.value
+    curr = curr.next
+  return list_max
+
 def rearrange_linked_list(head, k):
+  if k > get_max_value(head): return head
+
   start = curr = head
-  last_unordered = last_ordered = head
+  last_unordered = head
 
   while curr.next:
     nxt = curr.next
@@ -54,17 +61,24 @@ def rearrange_linked_list(head, k):
           
         curr.next = new_next
       else:
-        last_ordered = curr.next
         curr = curr.next
 
   return start
 
 
 if __name__ == "__main__":
+  # nodes = [
+  #   {"id": "5", "next": "0", "value": 5},
+  #   {"id": "0", "next": "3", "value": 0},
+  #   {"id": "3", "next": "2", "value": 3},
+  #   {"id": "2", "next": "1", "value": 2},
+  #   {"id": "1", "next": "4", "value": 1},
+  #   {"id": "4", "next": None, "value": 4}
+  # ]
   nodes = [
-    {"id": "5", "next": "0", "value": 5},
-    {"id": "0", "next": "3", "value": 0},
-    {"id": "3", "next": "2", "value": 3},
+    {"id": "3", "next": "0", "value": 3},
+    {"id": "0", "next": "5", "value": 0},
+    {"id": "5", "next": "2", "value": 5},
     {"id": "2", "next": "1", "value": 2},
     {"id": "1", "next": "4", "value": 1},
     {"id": "4", "next": None, "value": 4}
@@ -77,5 +91,5 @@ if __name__ == "__main__":
 
   print(traverse(nodes[0]))
 
-  l = rearrange_linked_list(nodes[0], 3)
+  l = rearrange_linked_list(nodes[0], -1)
   print(traverse(l))
