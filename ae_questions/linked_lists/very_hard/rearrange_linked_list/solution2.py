@@ -1,5 +1,10 @@
 """
+Create a function that takes in a singly-linked list and an int k and returns the list, rearranged in place, with nodes of value >= k listed after nodes with lesser values. Nodes greater than and less than the value itself should keep their relative order in the rearranged list.
 
+For example, a list ```5 -> 0 -> 3 -> 2 -> 1 -> 4``` with k = 3 should change to ```0 -> 2 -> 1 -> 3 -> 5 -> 4``` after running it through the function.
+
+TC: O(n) - loops through all nodes.
+SC: O(1) - rearranges in place.
 """
 class Node:
   """ Node class. Helps build LL data structure. """
@@ -16,6 +21,7 @@ def traverse(head):
   return order
 
 def add_node(head, tail, node):
+  """ Adds a node to a segmented list. Sets as both head and tail if head is None. """
   if not head: head = tail = node
   else:
     tail.next = node
