@@ -15,6 +15,21 @@ def traverse(head):
     head = head.next
   return order
 
+def swap(prev, curr, next):
+  new_next = next.next
+  prev.next = next
+  next.next = curr
+  curr.next = new_next
+
+  # previous next will now be previous to current node
+  return next
+
+def sort_in_order(curr, prev):
+  while True:
+    if curr.value > curr.next.value:
+      prev = swap(prev, curr, curr.next)
+    else: break
+
 def rearrange_linked_list(head, k):
   start = head
   curr = head.next
