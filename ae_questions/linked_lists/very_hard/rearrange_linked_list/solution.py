@@ -31,30 +31,31 @@ def sort_in_order(curr, prev):
     else: break
 
 def rearrange_linked_list(head, k):
-  start = head
-  curr = head.next
+  start = curr = head
   last_unordered = last_ordered = head
+
   while curr.next:
     nxt = curr.next
-    print(f"curr: {curr.value if curr else None}, lo: {last_ordered.value if last_ordered else None}, lu: {last_unordered.value if last_unordered else None}")
-    if curr.value < k:
-      if last_ordered == last_unordered:
-        start = last_unordered = curr
-        curr.next = last_ordered
+
+    if curr.value >= k:
+      if curr.value > curr.next.value:
+        new_next = nxt.next
+        if last_unordered.value >= k:
+          nxt.next = curr
+          start = last_unordered = nxt
+        else:
+          first_ordered = last_unordered.next
+          last_unordered.next = nxt
+          nxt.next = first_ordered
+          if nxt.value < k:
+            last_unordered = nxt
+          else:
+            sort_in_order(nxt, last_unordered)
+          
+        curr.next = new_next
       else:
-        first_ordered = last_unordered.next
-        curr.next = first_ordered
-        last_unordered.next = curr
-        last_unordered = curr
-
-      last_ordered.next = nxt
-      curr = last_ordered.next
-    else:
-      last_ordered = curr
-    
-      curr = nxt
-
-      
+        last_ordered = curr.next
+        curr = curr.next
 
   return start
 
