@@ -1,53 +1,33 @@
 """
 
 """
-def find_val(array, r, pos):
-  print("r:", r)
-  if pos:
-    i, m = None, float('-inf')
-    for idx in r: (i, m) = (idx, array[idx]) if array[idx] > m else (i, m)
-  else:
-    i, m = None, float('inf')
-    for idx in r:
-      print(array[idx], array[idx] < m)
-      (i, m) = (idx, array[idx]) if array[idx] < m else (i, m)
-  return i, m
-
-def extend_expression(array, sum, start, remaining):
-  print(f"""
-    array: {array},
-    sum: {sum},
-    start: {start},
-    remaining: {remaining}
-  """)
-
-  # keep track of index and value
-  to_add = remaining % 2 == 0
-
-  possible_values = range(start, len(array) - remaining + 1)
-  if len(possible_values) == remaining:
-    i = possible_values[0]
-    val = array[i]
-  else:
-    i, val = find_val(array, possible_values, True) if to_add else find_val(array, possible_values, False)
-
-  print(f"i: {i}, val: {val}")
-
-  sum = sum + val if to_add else sum - val
-
-  return extend_expression(array, sum, i + 1, remaining - 1) if remaining > 1 else sum
+def determine_sign(number, row):
+  return number if row % 2 == 0 else number * -1
 
 def maximize_expression(array):
-  max_exp = 0
-  if len(array) < 4: return max_exp
+  if len(array) < 4: return 0
+  matrix = [[None for _ in range(len(array))] for _ in range(4)]
+  matrix[0][0] = array[0]
 
-  return extend_expression(array, max_exp, 0, 4)
-
+  for col in range(1, len(array)):
+    for row in range(0, min(col + 1, 4)):
+      # print(col, row)
+      
+      prev = matrix[row][col - 1]
+      one_less_max = 0 if row == 0 else matrix[row - 1][col - 1]
+      if prev is None:
+        matrix[row][col] = one_less_max + determine_sign(array[col], row)
+      else:
+        if row == 0: matrix[row][col] = max(prev, array[col])
+        else:
+          matrix[row][col] = max(prev, one_less_max + determine_sign(array[col], row))
+    
+  return matrix[-1][-1]
 
 if __name__ == "__main__":
-  # print(maximize_expression(
-  #   [3, 6, 1, -3, 2, 7]
-  # )) # 4
+  print(maximize_expression(
+    [3, 6, 1, -3, 2, 7]
+  )) # 4
 
   print(maximize_expression(
     [6, 2, 3, 4, 1, -1, -2, 3, 1, 7, 8, -8, 2, 5, 1]
