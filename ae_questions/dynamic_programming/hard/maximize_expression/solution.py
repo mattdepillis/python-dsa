@@ -1,5 +1,12 @@
 """
+Write a function that takes an array of integers and returns the largest possible value for the following expression:
+```
+array[a] - array[b] + array[c] - array[d]
+```,
+where a < b < c < d.
 
+TC: O(n) - loop through elements once.
+SC: O(n) - store max state for 1-4 number sums in a matrix of 4 rows and n cols.
 """
 def determine_sign(number, row):
   return number if row % 2 == 0 else number * -1
@@ -11,8 +18,6 @@ def maximize_expression(array):
 
   for col in range(1, len(array)):
     for row in range(0, min(col + 1, 4)):
-      # print(col, row)
-      
       prev = matrix[row][col - 1]
       one_less_max = 0 if row == 0 else matrix[row - 1][col - 1]
       if prev is None:
