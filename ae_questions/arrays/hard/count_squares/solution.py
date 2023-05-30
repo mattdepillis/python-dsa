@@ -1,8 +1,13 @@
 """
+Write a function that takes a list of Cartesian coordinates and returns the number of squares that can be formed from these coordinates.
 
+TC: O(n^2) -- need to iterate through the list roughly n^2 times (for each element in list, try all combos with subsequent numbers)
+SC: O(n) -- could store linearly-proportional number of square values, and store 2 to 3 possible pair values per generated pair.
 """
 
 def generate_possible_pairs(one, two, delta_x, delta_y, slope):
+  """ Generates the possible pairs for a given two points based on the slope of the line they form. """
+
   if slope == "undefined":
     possible_points = [
       [
@@ -46,6 +51,7 @@ def generate_possible_pairs(one, two, delta_x, delta_y, slope):
 
 
 def count_squares(points):
+  """ Generates a list representing all valid squares that can be formed from the provided Cartesian coordinates. """
   squares = []
   
   for i in range(len(points)):
@@ -68,7 +74,8 @@ def count_squares(points):
           square.sort()
           if not square in squares: squares.append(square)
 
-  return squares
+  print(squares)
+  return len(squares)
 
 if __name__ == "__main__":
   print(count_squares([
