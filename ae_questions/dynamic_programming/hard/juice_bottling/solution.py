@@ -26,22 +26,26 @@ def juice_bottling(prices):
 
 
 if __name__ == "__main__":
-  print(juice_bottling(
-    [0, 1, 3, 2]
-  )) # [1, 2]
+  # print(juice_bottling(
+  #   [0, 1, 3, 2]
+  # )) # [1, 2]
+
+  # print(juice_bottling(
+  #   [0, 2, 3, 4]
+  # )) # [1, 1, 1]
+
+  # print(juice_bottling(
+  #   [0, 5, 6, 7, 8, 9, 10]
+  # )) # [1, 1, 1, 1, 1, 1]
+
+  # print(juice_bottling(
+  #   [0, 1, 3, 5, 4, 10, 7, 12, 15, 13, 16]
+  # )) # [5, 5]
+
+  # print(juice_bottling(
+  #   [0, 1, 3, 6, 5, 4, 17, 15, 20, 18, 21]
+  # )) # [1, 3, 6]
 
   print(juice_bottling(
-    [0, 2, 3, 4]
-  )) # [1, 1, 1]
-
-  print(juice_bottling(
-    [0, 5, 6, 7, 8, 9, 10]
-  )) # [1, 1, 1, 1, 1, 1]
-
-  print(juice_bottling(
-    [0, 1, 3, 5, 4, 10, 7, 12, 15, 13, 16]
-  )) # [5, 5]
-
-  print(juice_bottling(
-    [0, 1, 3, 6, 5, 4, 17, 15, 20, 18, 21]
-  )) # [1, 3, 6]
+    [0, 1, 3, 7, 5, 4, 12, 15, 20, 18, 25]
+  ))
