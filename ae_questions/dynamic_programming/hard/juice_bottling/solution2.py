@@ -1,5 +1,8 @@
 """
+Complete solution.
 
+TC: O(n^2) -- need to loop through all numbers max n times
+SC: O(n) -- max calls on the stack is n at a given time
 """
 def recurse(prices, units_left):
   max_revenue = 0
