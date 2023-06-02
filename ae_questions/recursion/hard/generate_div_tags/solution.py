@@ -1,66 +1,54 @@
 """
-
 """
-def wrap(string):
-  return "<div>" + string + "</div>"
+
+# lambda functions for wrap, prepend, and append operations
+wrap = lambda string : "<div>" + string + "</div>"
+prepend = lambda string: "<div></div>" + string
+append = lambda string: string + "<div></div>"
 
 def generate_new_tag_combos(string):
+  return [ wrap(string), prepend(string), append(string) ]
+
+def generate_two_tag_combos(string1, string2):
   return [
-    wrap(string), # wrap
-    "<div></div>" + string, # prepend
-    string + "<div></div>" # append
+    string1 + string2,
+    string2 + string1
   ]
 
+def generate_from_prior_valid_combos(prior, current, tags):
+  # generate the missing combinations from prior valid tag levels
+  tried = set()
+  r = reversed(range(2, tags - 1))
+  for i in r:
+    if i in tried: continue
+    tags_i, tags_j = prior[i], prior[tags - i]
+    for valid_i in tags_i:
+      for valid_j in tags_j:
+        nc = generate_two_tag_combos(valid_i, valid_j)
+        for s in nc: current.add(s)
+
 def recurse(tags):
-  if tags == 1: return [ "<div></div>" ], { 1: "<div></div>" }
+  if tags == 1: return { 1: [ "<div></div>" ] }
   valid = set()
-  prior_valid, wrapped = recurse(tags - 1)
+  prior_valid = recurse(tags - 1)
 
-  print('w', wrapped)
-
-  for key in wrapped.keys():
-    if tags % key == 0:
-      print('k', key, 't', tags, wrapped[key] * (tags // key))
-      valid.add(wrapped[key] * (tags // key))
-
-  wrapped[tags] = wrap(wrapped[tags - 1])
-
-  print('v', valid)
-
-  for combo in prior_valid:
+  # for tag_level in prior_valid:
+  for combo in prior_valid[tags - 1]:
     new_combos = generate_new_tag_combos(combo)
     for nc in new_combos:
       valid.add(nc)
+
+  generate_from_prior_valid_combos(prior_valid, valid, tags)
+
+  prior_valid[tags] = list(valid)
   
-  return list(valid), wrapped
+  return prior_valid
 
 def generate_div_tags(tags):
-  t = recurse(tags)
-  return t
+  return recurse(tags)[tags]
 
 
 if __name__ == "__main__":
-  mine = generate_div_tags(5)
-  # mine = generate_div_tags(4)
-  print('w *** ', mine[1])
-  print(len(mine[0]))
-
-  # correct_4 = [
-  #   "<div><div><div><div></div></div></div></div>", "<div><div><div></div><div></div></div></div>", "<div><div><div></div></div><div></div></div>", "<div><div><div></div></div></div><div></div>", "<div><div></div><div><div></div></div></div>", "<div><div></div><div></div><div></div></div>", "<div><div></div><div></div></div><div></div>", "<div><div></div></div><div><div></div></div>", "<div><div></div></div><div></div><div></div>", "<div></div><div><div><div></div></div></div>", "<div></div><div><div></div><div></div></div>", "<div></div><div><div></div></div><div></div>", "<div></div><div></div><div><div></div></div>", "<div></div><div></div><div></div><div></div>"
-  # ]
-  # # print(len(correct_4))
-
-  # missing = [tag for tag in correct_4 if tag not in mine[0]]
-  # print(missing)
-
   # mine = generate_div_tags(5)
-
-  correct_5 = [
-    "<div><div><div><div><div></div></div></div></div></div>", "<div><div><div><div></div><div></div></div></div></div>", "<div><div><div><div></div></div><div></div></div></div>", "<div><div><div><div></div></div></div><div></div></div>", "<div><div><div><div></div></div></div></div><div></div>", "<div><div><div></div><div><div></div></div></div></div>", "<div><div><div></div><div></div><div></div></div></div>", "<div><div><div></div><div></div></div><div></div></div>", "<div><div><div></div><div></div></div></div><div></div>", "<div><div><div></div></div><div><div></div></div></div>", "<div><div><div></div></div><div></div><div></div></div>", "<div><div><div></div></div><div></div></div><div></div>", "<div><div><div></div></div></div><div><div></div></div>", "<div><div><div></div></div></div><div></div><div></div>", "<div><div></div><div><div><div></div></div></div></div>", "<div><div></div><div><div></div><div></div></div></div>", "<div><div></div><div><div></div></div><div></div></div>", "<div><div></div><div><div></div></div></div><div></div>", "<div><div></div><div></div><div><div></div></div></div>", "<div><div></div><div></div><div></div><div></div></div>", "<div><div></div><div></div><div></div></div><div></div>", "<div><div></div><div></div></div><div><div></div></div>", "<div><div></div><div></div></div><div></div><div></div>", "<div><div></div></div><div><div><div></div></div></div>", "<div><div></div></div><div><div></div><div></div></div>", "<div><div></div></div><div><div></div></div><div></div>", "<div><div></div></div><div></div><div><div></div></div>", "<div><div></div></div><div></div><div></div><div></div>", "<div></div><div><div><div><div></div></div></div></div>", "<div></div><div><div><div></div><div></div></div></div>", "<div></div><div><div><div></div></div><div></div></div>", "<div></div><div><div><div></div></div></div><div></div>", "<div></div><div><div></div><div><div></div></div></div>", "<div></div><div><div></div><div></div><div></div></div>", "<div></div><div><div></div><div></div></div><div></div>", "<div></div><div><div></div></div><div><div></div></div>", "<div></div><div><div></div></div><div></div><div></div>", "<div></div><div></div><div><div><div></div></div></div>", "<div></div><div></div><div><div></div><div></div></div>", "<div></div><div></div><div><div></div></div><div></div>", "<div></div><div></div><div></div><div><div></div></div>", "<div></div><div></div><div></div><div></div><div></div>"
-  ]
-
-  print(len(correct_5))
-
-  missing = [tag for tag in correct_5 if tag not in mine[0]]
-
-  print(missing)
+  mine = generate_div_tags(4)
+  print(len(mine))
