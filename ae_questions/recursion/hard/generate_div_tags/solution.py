@@ -1,6 +1,6 @@
 """
-"""
 
+"""
 # lambda functions for wrap, prepend, and append operations
 wrap = lambda string : "<div>" + string + "</div>"
 prepend = lambda string: "<div></div>" + string
@@ -17,10 +17,8 @@ def generate_two_tag_combos(string1, string2):
 
 def generate_from_prior_valid_combos(prior, current, tags):
   # generate the missing combinations from prior valid tag levels
-  tried = set()
   r = reversed(range(2, tags - 1))
   for i in r:
-    if i in tried: continue
     tags_i, tags_j = prior[i], prior[tags - i]
     for valid_i in tags_i:
       for valid_j in tags_j:
@@ -50,5 +48,5 @@ def generate_div_tags(tags):
 
 if __name__ == "__main__":
   # mine = generate_div_tags(5)
-  mine = generate_div_tags(4)
-  print(len(mine))
+  v = generate_div_tags(4)
+  print(len(v))
