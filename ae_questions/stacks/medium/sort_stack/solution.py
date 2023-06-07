@@ -1,5 +1,8 @@
 """
+Write a function that takes in a stack and recursively sorts the stack in place. Only use the .pop() and .append() native list methods to achieve this. NOTE: the top of the stack is the end of the list.
 
+TC: O(n^2) - we loop through the list to find the current max value about n times
+SC: O(n) - maximum depth of recursion is equal to n elements
 """
 def handle_recursive_stack_sort(stack):
   if len(stack) < 2: return stack
