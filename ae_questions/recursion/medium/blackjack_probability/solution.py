@@ -30,6 +30,9 @@ def recursive_determine_p_bust(target, starting_hand, multiplier):
 
 
 def blackjack_probability(target, starting_hand):
+  first_start = target + 1 - 10
+  if starting_hand < first_start: starting_hand = first_start
+
   return recursive_determine_p_bust(target, starting_hand, 1)
 
 
