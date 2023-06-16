@@ -16,14 +16,31 @@ def find_neighbors(board, row, col):
   return neighbors
 
 
+def find_adjacent_mines(board, row, col, visited):
+  if (row, col) in visited: return
+  visited.append((row, col))
+
+  neighbors = find_neighbors(board, row, col)
+
+  adjacent_mines = 0
+  for n in neighbors:
+    if board[n[0]][n[1]] == "M": adjacent_mines += 1
+
+  if adjacent_mines == 0:
+    for n in neighbors: find_adjacent_mines(board, n[0], n[1], visited)
+
+  board[row][col] = f"{adjacent_mines}"
+
+
 def reveal_minesweeper(board, row, col):
   # check clicked spot for mine
   if board[row][col] == "M":
     board[row][col] = "X"
     return board
   
-  neighbors = find_neighbors(board, row, col)
-  return neighbors
+  find_adjacent_mines(board, row, col, visited=[])
+
+  return board
 
 
 if __name__ == "__main__":
