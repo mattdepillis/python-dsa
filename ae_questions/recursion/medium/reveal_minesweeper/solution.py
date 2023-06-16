@@ -1,7 +1,17 @@
 """
+Given a clicked spot on the board, will reveal the number of adjacent mines to the spot according to the rules of the [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) game.
 
+Rules:
+- "M" = mine
+- "H" = unrevealed spot on board
+
+If the clicked spot on the board isn't a mine, determine how many adjacent mines there are. If adjacent mines are 0, recurse to neighbors until we reveal spots with at least one mine adjacent.
+
+TC: O(w * h), where w = width and h = height of matrix
+SC: O(w * h)
 """
 def find_neighbors(board, row, col):
+  """ Finds valid neighbors for the current spot on the board. """
   neighbors = []
   last_row, last_col = len(board) - 1, len(board[0]) - 1
 
@@ -17,6 +27,7 @@ def find_neighbors(board, row, col):
 
 
 def find_adjacent_mines(board, row, col, visited):
+  """ Determines how many mines lie adjacent to the current spot on the board. Recurses to neighbors if 0. """
   if (row, col) in visited: return
   visited.append((row, col))
 
@@ -33,6 +44,7 @@ def find_adjacent_mines(board, row, col, visited):
 
 
 def reveal_minesweeper(board, row, col):
+  """ Handler function. """
   # check clicked spot for mine
   if board[row][col] == "M":
     board[row][col] = "X"
