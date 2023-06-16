@@ -1,5 +1,5 @@
 """
-
+NOTE: this path to a solution did not work
 """
 def recursive_determine_p_bust(target, starting_hand, multiplier):
   stand, bust = target - 4, target + 1
