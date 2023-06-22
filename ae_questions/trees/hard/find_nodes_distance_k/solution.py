@@ -7,8 +7,47 @@ class Node:
     self.left = None
     self.right = None
 
+def map_relationships(node, parent, rels):
+  entry = {
+    "parent": parent, "children": []
+  }
+
+  if node.left: entry["children"].append(node.left)
+  if node.right: entry["children"].append(node.right)
+
+  for child in entry["children"]: map_relationships(child, node, rels)
+  rels[node.value] = entry
+
+  return rels
+
+
+def get_lower_nodes_distance_k(value, relationships, k_remaining):
+  entry = relationships[value]
+  print('e', entry)
+
+  if k_remaining == 1: return entry["children"]
+  get_lower_nodes_distance_k = []
+  for child in entry["children"]:
+    get_lower_nodes_distance_k += get_lower_nodes_distance_k(child, k_remaining - 1)
+  return get_lower_nodes_distance_k
+
+
+
 def find_nodes_distance_k(tree, target, k):
-  return tree
+  nodes_distance_k = []
+  relationships = map_relationships(tree, parent=None, rels={})
+
+  target = relationships[target]
+  print(target)
+
+  for child in target["children"]:
+    print('c', child, child.value)
+    nodes_distance_k += get_lower_nodes_distance_k(child.value, relationships, k - 1)
+
+
+  nk = [node.value for node in nodes_distance_k]
+  print('nk', nk)
+  return nodes_distance_k
 
 
 if __name__ == "__main__":
