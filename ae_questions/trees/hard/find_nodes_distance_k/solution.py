@@ -11,6 +11,7 @@ class Node:
     self.right = None
 
 def map_relationships(node, node_value, parent_value, rels):
+  """ Creates a hierarchical graph of parent-child relationships to be traversed. """
   entry = {
     "parent": parent_value, "children": []
   }
@@ -27,6 +28,7 @@ def map_relationships(node, node_value, parent_value, rels):
 
 
 def get_lower_nodes_distance_k(value, relationships, k_remaining):
+  """ Gets nodes below current node that are distance k away. """
   entry = relationships[value]
 
   if k_remaining == 1: return entry["children"]
@@ -39,6 +41,10 @@ def get_lower_nodes_distance_k(value, relationships, k_remaining):
 
 
 def get_upper_nodes_distance_k(value, visited, relationships, k, up):
+  """
+  Gets nodes above current node that are distance k away.
+  NOTE: this method could probably be optimized. ****
+  """
   if k == 1:
     nk = [child for child in relationships[value]['children'] if child not in visited]
     if relationships[value]['parent'] and up and relationships[value]['parent'] not in visited: nk += [relationships[value]['parent']]
@@ -59,6 +65,7 @@ def get_upper_nodes_distance_k(value, visited, relationships, k, up):
 
 
 def find_nodes_distance_k(tree, target, k):
+  """ Handler function. """
   nodes_distance_k = []
   relationships = map_relationships(tree, tree.value, parent_value=None, rels={})
 
