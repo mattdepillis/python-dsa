@@ -1,5 +1,8 @@
 """
+Given the root node of a Binary Tree, a target node value to start from, and a value k, return all the nodes in the tree that are k edges away from the target node.
 
+TC: O(n) -- store an adjacency graph for all nodes in the tree
+SC: O(n) -- loop through all nodes in the tree
 """
 class Node:
   def __init__(self, value):
@@ -7,16 +10,18 @@ class Node:
     self.left = None
     self.right = None
 
-def map_relationships(node, parent, rels):
+def map_relationships(node, node_value, parent_value, rels):
   entry = {
-    "parent": parent, "children": []
+    "parent": parent_value, "children": []
   }
 
   if node.left: entry["children"].append(node.left)
   if node.right: entry["children"].append(node.right)
 
-  for child in entry["children"]: map_relationships(child, node, rels)
-  rels[node.value] = entry
+  for i, child in enumerate(entry["children"]):
+    entry["children"][i] = child.value
+    map_relationships(child, child.value, node.value, rels)
+  rels[node_value] = entry
 
   return rels
 
@@ -28,59 +33,46 @@ def get_lower_nodes_distance_k(value, relationships, k_remaining):
   lower_nodes_distance_k = []
 
   for child in entry["children"]:
-    lower_nodes_distance_k += get_lower_nodes_distance_k(child.value, relationships, k_remaining - 1)
+    lower_nodes_distance_k += get_lower_nodes_distance_k(child, relationships, k_remaining - 1)
 
   return lower_nodes_distance_k
 
-def get_upper_nodes_distance_k(value, visited, relationships, k, up):
-  print('k_rem', k, 'value', value)
 
+def get_upper_nodes_distance_k(value, visited, relationships, k, up):
   if k == 1:
-    nk = [child for child in relationships[value]['children'] if child.value not in visited]
-    print('nk', nk)
-    if relationships[value]['parent'] and up and relationships[value]['parent'].value not in visited: nk += [relationships[value]['parent']]
-    print('nk now', nk)
+    nk = [child for child in relationships[value]['children'] if child not in visited]
+    if relationships[value]['parent'] and up and relationships[value]['parent'] not in visited: nk += [relationships[value]['parent']]
     return nk
 
   upper_nodes_distance_k = []
 
   if relationships[value]['parent']:
-    visited += [relationships[value]['parent'].value]
-    upper_nodes_distance_k += get_upper_nodes_distance_k(relationships[value]['parent'].value, visited, relationships, k - 1, True)
+    visited += [relationships[value]['parent']]
+    upper_nodes_distance_k += get_upper_nodes_distance_k(relationships[value]['parent'], visited, relationships, k - 1, True)
   if k > 1:
     for child in relationships[value]['children']:
-      if not child.value in visited:
-        visited += [child.value]
-        upper_nodes_distance_k += get_upper_nodes_distance_k(child.value, visited, relationships, k - 1, False)
+      if not child in visited:
+        visited += [child]
+        upper_nodes_distance_k += get_upper_nodes_distance_k(child, visited, relationships, k - 1, False)
 
   return upper_nodes_distance_k
 
 
 def find_nodes_distance_k(tree, target, k):
   nodes_distance_k = []
-  relationships = map_relationships(tree, parent=None, rels={})
-  # print(relationships)
+  relationships = map_relationships(tree, tree.value, parent_value=None, rels={})
 
   target_entry = relationships[target]
 
   if k < 2: nodes_distance_k += target_entry["children"]
   else:
     for child in target_entry["children"]:
-      nodes_distance_k += get_lower_nodes_distance_k(child.value, relationships, k - 1)
-
-  print('lower', [node.value for node in nodes_distance_k])
+      nodes_distance_k += get_lower_nodes_distance_k(child, relationships, k - 1)
   
   if target_entry["parent"]:
     nodes_distance_k += get_upper_nodes_distance_k(target, [target], relationships, k, True)
 
-  included, nk = set(), []
-  for node in nodes_distance_k:
-    if node.value in included: continue
-    else:
-      nk.append(node.value)
-      included.add(node.value)
-
-  return nk
+  return list(set(nodes_distance_k))
 
 
 if __name__ == "__main__":
