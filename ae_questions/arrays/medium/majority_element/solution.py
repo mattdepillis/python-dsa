@@ -1,5 +1,8 @@
 """
+Write a function that takes a list of unordered positive integers and returns the majority element in the list.
 
+TC: O(n)
+SC: O(1)
 """
 def majority_element(array):
   i = last_element = 0
