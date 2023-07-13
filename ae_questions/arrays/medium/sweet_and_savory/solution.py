@@ -1,5 +1,8 @@
 """
+Write a function that returns the ideal pairing of "sweet" (negative) and "savory" (positive) dishes whose combined value is as close to, but not greater than, the target combination value.
 
+TC: O(n) -- ```sweet`` and ```savory``` combine for n space
+SC: O(n * log(n)) -- iterate through the array n * log n - ish times, because sorted by >< 0
 """
 def sweet_and_savory(array, target):
   sweet, savory, ideal = [], [], [0, 0]
