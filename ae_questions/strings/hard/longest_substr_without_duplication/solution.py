@@ -3,27 +3,30 @@
 
 """
 def longest_substr_without_duplication(string):
-  curr, longest_substr, encountered = "", "", set()
+  curr, prev_longest, encountered = "", "", set()
 
   for char in string:
-    print(curr, char, encountered, longest_substr)
-    if not char in encountered:
-      curr += char
-      encountered.add(char)
-    else:
-      if len(curr) > len(longest_substr): longest_substr = curr
+    if char in encountered:
+      if len(curr) > len(prev_longest): prev_longest = curr
       last_found_index = curr.index(char)
-      curr = curr[last_found_index + 1:] + char
+      curr = curr[last_found_index + 1:]
       encountered = set(curr)
+
+    curr += char
+    encountered.add(char)
     
-  return longest_substr
+  return curr if len(curr) > len(prev_longest) else prev_longest
 
 
 if __name__ == "__main__":
-  print(longest_substr_without_duplication(
-    "clementisacap" # mentisac
-  ))
+  # print(longest_substr_without_duplication(
+  #   "clementisacap" # mentisac
+  # ))
+
+  # print(longest_substr_without_duplication(
+  #   "abacacacaaabacaaaeaaafa" # bac
+  # ))
 
   print(longest_substr_without_duplication(
-    "abacacacaaabacaaaeaaafa" # bac
+    "abcbde" # cbde
   ))
