@@ -1,6 +1,10 @@
 """
+Write a function that takes a string and returns its longest substring without duplicate characters in it.
 
+TC: O(n) - loop through the string characters once
+SC: O(n) - curr, prev_longest, and encountered could store up to n characters each
 
+NOTE: this could be optimized by tracking indices, rather than storing the current substring and prev longest in strings. Additionally, resetting ```encountered``` every time there's a duplicate char is inefficient.
 """
 def longest_substr_without_duplication(string):
   curr, prev_longest, encountered = "", "", set()
