@@ -2,8 +2,6 @@
 
 """
 def is_move_valid(matrix, indices):
-  print(indices[0], indices[1])
-  # if indices[0] >= len(matrix) or indices[0] >= len(matrix[indices[0]]) or indices[0] < 0: return False
   if indices[0] >= len(matrix) or indices[0] < 0: return False
   if indices[1] >= len(matrix[indices[0]]) or indices[1] < 0: return False
   if matrix[indices[0]][indices[1]] is None: return False
@@ -14,12 +12,12 @@ def determine_next_move(moves, matrix, prev_move, current_indices):
 
   for _ in range(4):
     circular_index = try_next % 4
-    # print('ci', circular_index, current_indices)
+
     indices = [
       current_indices[0] + moves[circular_index][0],
       current_indices[1] + moves[circular_index][1]
     ]
-    # print('i', indices)
+
     if is_move_valid(matrix, indices): return circular_index
     try_next += 1
   
@@ -37,12 +35,9 @@ def zigzag_traverse(matrix):
   next_move = -1
 
   for _ in range(len(matrix) * len(matrix[0])):
-    print('trying to add', curr[0], curr[1])
     visited.append(matrix[curr[0]][curr[1]])
-    print("new move! ", visited)
 
     next_move = determine_next_move(moves, matrix, next_move, curr)
-    print('actual next move', next_move)
 
     new_indices = [
       curr[0] + moves[next_move][0],
@@ -50,10 +45,6 @@ def zigzag_traverse(matrix):
     ]
     matrix[curr[0]][curr[1]] = None
     curr = new_indices
-    print('new curr', curr)
-
-    # next_move = determine_next_move(moves, matrix, next_move, curr)
-    # print('nm', next_move)
     
   return visited
 
