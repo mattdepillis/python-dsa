@@ -4,7 +4,7 @@
 def is_move_valid(matrix, indices):
   print(indices[0], indices[1])
   if indices[0] >= len(matrix) or indices[0] >= len(matrix[indices[0]]) or indices[0] < 0: return False
-  if indices[1] >= len(matrix) or indices[1] < 0: return False
+  if indices[1] >= len(matrix[indices[0]]) or indices[1] < 0: return False
   if matrix[indices[0]][indices[1]] is None: return False
   return True
 
@@ -18,6 +18,7 @@ def determine_next_move(moves, matrix, prev_move, current_indices):
       current_indices[0] + moves[circular_index][0],
       current_indices[1] + moves[circular_index][1]
     ]
+    # print('i', indices)
     if is_move_valid(matrix, indices): return circular_index
     try_next += 1
   
@@ -53,16 +54,16 @@ def zigzag_traverse(matrix):
 
 
 if __name__ == "__main__":
-  # print(zigzag_traverse([
-  #   [1, 3, 4, 10],
-  #   [2, 5, 9, 11],
-  #   [6, 8, 12, 15],
-  #   [7, 13, 14, 16]
-  # ]))
-
   print(zigzag_traverse([
-    [1],
-    [2],
-    [3],
-    [4]
+    [1, 3, 4, 10],
+    [2, 5, 9, 11],
+    [6, 8, 12, 15],
+    [7, 13, 14, 16]
   ]))
+
+  # print(zigzag_traverse([
+  #   [1],
+  #   [2],
+  #   [3],
+  #   [4]
+  # ]))
