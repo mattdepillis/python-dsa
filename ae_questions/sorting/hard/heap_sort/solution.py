@@ -1,5 +1,8 @@
 """
+Write a function called heap_sort that accepts an array of integers as a parameter and returns the array sorted from smallest to largest via the Heap Sort algorithm.
 
+TC: O(n * log(n)) -- iterates through n - 1 times; for each time, will perform approximately log(n) sets of parent-child value comparisons
+SC: O(1) -- sorts the array in place
 """
 def heap_sort(array):
   for i in range(len(array) - 1):
