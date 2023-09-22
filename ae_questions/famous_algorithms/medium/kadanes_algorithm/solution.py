@@ -1,5 +1,7 @@
 """
+Solve the max-subarray problem with Kadane's algorithm.
 
+Solution 1: my own. One pass. TC = O(n), SC = O(1)
 """
 def kadanes_algorithm(array):
   min_sum = total_sum = 0
