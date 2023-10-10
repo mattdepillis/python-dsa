@@ -13,18 +13,24 @@ def recurse(current, two, potential_descendant, relationships):
     if relationships[0] and current == potential_descendant:
         relationships[1] = True
 
-    if current.left:
-        relationships = recurse(current.left, two, potential_descendant, relationships)
-        if relationships[0] and relationships[1]: return relationships
-    if current.right:
-        relationships = recurse(current.right, two, potential_descendant, relationships)
+    if not relationships[0]:
+        if current.value > two.value and current.left:
+            relationships = recurse(current.left, two, potential_descendant, relationships)
+        elif current.value < two.value and current.right:
+            relationships = recurse(current.right, two, potential_descendant, relationships)
+
+    elif not relationships[1]:
+        if current.value > potential_descendant.value and current.left:
+            relationships = recurse(current.left, two, potential_descendant, relationships)
+        elif current.value < potential_descendant.value and current.right:
+            relationships = recurse(current.right, two, potential_descendant, relationships)
 
     return relationships
 
 
 def validate_three_nodes(node_one, node_two, node_three):
     results = recurse(node_one, node_two, node_three, [False, False])
-    if not results[0] and not results[1]: results =  recurse(node_three, node_two, node_two, [False, False])
+    if not results[0] and not results[1]: results = recurse(node_three, node_two, node_two, [False, False])
     return results[0] and results[1]
 
 
