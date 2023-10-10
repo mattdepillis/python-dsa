@@ -7,9 +7,25 @@ class Node:
         self.left = None
         self.right = None
 
+def recurse(current, two, potential_descendant, relationships):
+    if not relationships[1] and current == two:
+        relationships[0] = True
+    if relationships[0] and current == potential_descendant:
+        relationships[1] = True
+
+    if current.left:
+        relationships = recurse(current.left, two, potential_descendant, relationships)
+        if relationships[0] and relationships[1]: return relationships
+    if current.right:
+        relationships = recurse(current.right, two, potential_descendant, relationships)
+
+    return relationships
+
 
 def validate_three_nodes(node_one, node_two, node_three):
-    return
+    results = recurse(node_one, node_two, node_three, [False, False])
+    if not results[0] and not results[1]: results =  recurse(node_three, node_two, node_two, [False, False])
+    return results[0] and results[1]
 
 
 if __name__ == "__main__":
@@ -24,7 +40,7 @@ if __name__ == "__main__":
       {"id": "6", "left": None, "right": None, "value": 6},
       {"id": "7", "left": "6", "right": "8", "value": 7},
       {"id": "8", "left": None, "right": None, "value": 8}
-    ]
+    ] # True
 
     node_one_id = "5"
     node_two_id = "2"
