@@ -3,41 +3,30 @@
 """
 def underscorify_substring(string, substring):
     underscorified = ""
-    last_found_index = 0
+    start_indices = []
+    start_index = 0
 
-    while last_found_index < len(string):
-        # print(f"last_found_index: {last_found_index}")
-        # print(f"string to search: {string[last_found_index:]}")
-        substr_index = string[last_found_index:].find(substring)
-        print(f"substr_index: {substr_index}")
+    while start_index < len(string):
+        substr_start_index = string[start_index:].find(substring)
+        if substr_start_index < 0: break
+        start_indices.append(start_index + substr_start_index)
+        start_index = start_index + substr_start_index + len(substring) - 1
 
-        if substr_index < 0:
-            print(f"could not find substring in the current string")
-            break
+    for i, start_index in enumerate(start_indices):
 
-        underscorified += string[last_found_index : last_found_index + substr_index]
-        matched, last_found_index = f"{substring}", last_found_index + substr_index
+        if i == 0 or start_index - start_indices[i - 1] > len(substring):
+            underscorified += "_"
 
-        while True:
-            overlap_index, next_start_index = len(substring - 1), len(substring)
+        end_index = len(string) if i == len(start_indices) - 1 else start_indices[i + 1]
+        end_substr_to_add_index = start_index + min(end_index - start_index, len(substring))
 
-            if (last_found_index + next_start_index < len(string)
-            ) and (string[last_found_index + next_start_index] == substring[0]
-            ) and string[last_found_index + next_start_index:].find(substring) == 0:
-                matched += substring
-                last_found_index += next_start_index
+        underscorified += string[start_index : end_substr_to_add_index]
 
-            elif (last_found_index + overlap_index < len(string)
-            ) and (string[last_found_index + overlap_index] == substring[0]
-            ) and string[last_found_index + overlap_index:].find(substring) == 0:
-                matched += substring[1:]
-                last_found_index += overlap_index
+        if i == len(start_indices) - 1 or end_substr_to_add_index < start_indices[i + 1]:
+            underscorified += "_"
 
-            else: break
+        underscorified += string[end_substr_to_add_index : end_index]
 
-        last_found_index += len(substring)
-
-    underscorified += string[last_found_index:]
     return underscorified
 
 
