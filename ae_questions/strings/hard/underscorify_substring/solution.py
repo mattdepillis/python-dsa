@@ -2,32 +2,20 @@
 
 """
 def underscorify_substring(string, substring):
-    underscorified = ""
-    start_indices = []
-    start_index = 0
+    # underscorified = ""
+    # start_indices = []
+    # counter = 0
+    # start, end = None, None
 
-    while start_index < len(string):
-        substr_start_index = string[start_index:].find(substring)
-        if substr_start_index < 0: break
-        start_indices.append(start_index + substr_start_index)
-        start_index = start_index + substr_start_index + len(substring) - 1
+    # for i in range(len(string)):
+    #     if not start:
+    #         if string[i] == substring[counter]:
+    #             counter += 1
+    #         else:
+    #             counter = 0
 
-    for i, start_index in enumerate(start_indices):
-
-        if i == 0 or start_index - start_indices[i - 1] > len(substring):
-            underscorified += "_"
-
-        end_index = len(string) if i == len(start_indices) - 1 else start_indices[i + 1]
-        end_substr_to_add_index = start_index + min(end_index - start_index, len(substring))
-
-        underscorified += string[start_index : end_substr_to_add_index]
-
-        if i == len(start_indices) - 1 or end_substr_to_add_index < start_indices[i + 1]:
-            underscorified += "_"
-
-        underscorified += string[end_substr_to_add_index : end_index]
-
-    return underscorified
+    # return underscorified
+    return
 
 
 if __name__ == "__main__":
