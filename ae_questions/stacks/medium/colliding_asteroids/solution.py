@@ -1,17 +1,20 @@
 """
+Given an array of integers representing asteroids (- moving left, + moving right), determine which asteroids collide with each other and which survive collisions.
+Asteroids must be traveling in opposite directions to potentially crash into each other. If two asteroids collide, the smaller one (by absolute value) explodes. If they're the same size, they both explode.
 
+TC: O(n) - must iterate through all asteroids
+SC: O(n) - must store stack of max size = n
 """
 def colliding_asteroids(asteroids):
     stack = []
 
     for i in range(len(asteroids)):
         stack.append(asteroids[i])
-        
+
         if asteroids[i] < 0:
             j = len(stack) - 2
-            while j >= 0:
-                if stack[j] < 0: break
-                elif abs(asteroids[i]) < abs(stack[j]):
+            while j >= 0 and stack[j] > 0:
+                if abs(asteroids[i]) < abs(stack[j]):
                     stack.pop(len(stack) - 1)
                     break
                 elif abs(asteroids[i]) == abs(stack[j]):
