@@ -5,21 +5,30 @@ def colliding_asteroids(asteroids):
     stack = []
 
     for i in range(len(asteroids)):
-        if len(stack) == 0 or stack[-1] < 0 or (stack[-1] > 0 and asteroids[i] > 0):
-            stack.append(asteroids[i])
-        else:
-            if abs(stack[len(stack) - 1]) < abs(asteroids[i]):
-                stack[len(stack) - 1] = asteroids[i]
-            elif abs(stack[len(stack) - 1]) == abs(asteroids[i]):
-                stack.pop(len(stack) - 1)
+        stack.append(asteroids[i])
+        
+        if asteroids[i] < 0:
+            j = len(stack) - 2
+            while j >= 0:
+                if stack[j] < 0: break
+                elif abs(asteroids[i]) < abs(stack[j]):
+                    stack.pop(len(stack) - 1)
+                    break
+                elif abs(asteroids[i]) == abs(stack[j]):
+                    stack.pop(len(stack) - 1)
+                    stack.pop(j)
+                    break
+                else:
+                    stack.pop(j)
+                    j -= 1
 
     return stack
 
 
 if __name__ == "__main__":
-    print(colliding_asteroids(
-        [ -3, 5, -8, 6, 7, -4, -7 ] # [ -3, -8, 6 ]
-    ))
+    # print(colliding_asteroids(
+    #     # [ -3, 5, -8, 6, 7, -4, -7 ] # [ -3, -8, 6 ]
+    # ))
 
     # print(colliding_asteroids([5]))
 
