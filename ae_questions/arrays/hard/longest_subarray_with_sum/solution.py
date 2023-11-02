@@ -1,5 +1,8 @@
 """
+Write a function that takes a non-empty array of non-negative integers and a non-negative integer representing a target sum, and returns the longest subarray that has sum == target sum.
 
+TC: O(n) - only iterate through each element just once
+SC: O(1) - overwrite the list index in place with the total sum up to that index. No n-proportional DS for storage needed
 """
 def longest_subarray_with_sum(array, target):
     longest_subarray = []
