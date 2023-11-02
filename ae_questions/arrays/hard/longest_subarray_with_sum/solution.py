@@ -9,13 +9,10 @@ def longest_subarray_with_sum(array, target):
         total_sum += array[i]
         sum_at_anchor = 0 if anchor == -1 else array[anchor]
         print('comp', total_sum - sum_at_anchor)
-        if total_sum - sum_at_anchor >= target:
-            # print("_________", i - anchor, anchor, longest_subarray)
-            if total_sum - sum_at_anchor == target and (
-                anchor == -1 or i - anchor > longest_subarray[1] - longest_subarray[0]
-            ):
+        if total_sum - sum_at_anchor == target:
+            if anchor == -1 or i - anchor > longest_subarray[1] - longest_subarray[0]:
                 longest_subarray = [anchor + 1, i]
-            anchor += 1
+        elif total_sum - sum_at_anchor > target: anchor += 1
         array[i] = total_sum
         print(array)
         print(anchor)
