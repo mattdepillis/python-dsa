@@ -16,7 +16,16 @@ def dfs(node, visited):
     return visited
 
 def repair_bst(node):
-    return node
+    repair = { "nodes": [], "parents": [] }
+    
+    repair, _, _ = validate_node(node, repair, prev=None, parent=None)
+
+    nodes = [node.value for node in repair["nodes"]]
+    parents = [parent.value for parent in repair["parents"]]
+
+    # if lengths of nodes and parents are both 1, then this means we need to swap with the root
+    
+    return nodes, parents
 
 
 if __name__ == "__main__":
