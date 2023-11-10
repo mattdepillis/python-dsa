@@ -29,13 +29,16 @@ def validate_node(node, repair, prev):
     return repair, node
 
 
-def repair_bst(node):
-    
-    repair, _ = validate_node(node, repair=[], prev=None)
+def repair_bst(tree):
+    repair, _ = validate_node(tree, repair=[], prev=None)
 
-    nodes = [node.value for node in repair]
+    if len(repair) < 2:
+        repair.append(tree)
     
-    return nodes
+    one, two = repair[0], repair[1]
+    one.value, two.value = two.value, one.value
+
+    return tree
 
 
 if __name__ == "__main__":
@@ -80,6 +83,8 @@ if __name__ == "__main__":
 
     root = store[nodes[0]["id"]]
     
-    print(repair_bst(root))
+    print(dfs(root, []))
+    root = repair_bst(root)
+    print(dfs(root, []))
 
-    # print(dfs(root, []))
+    
