@@ -20,23 +20,33 @@ def validate_node(node, repair, prev, parent):
         repair, prev, parent_of_prev_node = validate_node(node.left, repair, prev, node)
         if root: parent = parent_of_prev_node
 
-    if len(repair["nodes"]) == 2: return repair, node, parent
+    if len(repair["nodes"]) < 2:
+        if prev and prev.value > node.value:
+            if len(repair["nodes"]) == 0:
+                node_to_add, parent_to_add = prev, parent or node
+            else:
+                node_to_add, parent_to_add = node, parent or prev
+            repair["nodes"].append(node_to_add)
+            if not parent_to_add == node_to_add: repair["parents"].append(parent_to_add)
+            # repair["parents"].append(parent_to_add if not parent_to_add == node_to_add else None)
 
-    if prev and prev.value > node.value:
-        if len(repair["nodes"]) == 0:
-            node_to_add, parent_to_add = prev, parent or node
-        else:
-            node_to_add, parent_to_add = node, parent or prev
-        repair["nodes"].append(node_to_add)
-        if not parent_to_add == node_to_add: repair["parents"].append(parent_to_add)
-
-    if node.right:
-        return validate_node(node.right, repair, node, node)
+        if node.right:
+            return validate_node(node.right, repair, node, node)
 
     return repair, node, parent
 
 
 ## TODO need to actually swap the node locations
+"""
+    if 2 children but one parent -- then 2nd child is first parent
+    if 1 child and parent -- must swap with the root
+    else, just swap the nodes
+"""
+def check_child_placement(parent, child):
+    return 'left' if parent.left == child else 'right'
+
+def swap(root, repair):
+    return
 
 
 def repair_bst(node):
@@ -44,8 +54,10 @@ def repair_bst(node):
     
     repair, _, _ = validate_node(node, repair, prev=None, parent=None)
 
-    nodes = [node.value for node in repair["nodes"]]
-    parents = [parent.value for parent in repair["parents"]]
+    nodes = [node.value if node else node for node in repair["nodes"]]
+    parents = [parent.value if parent else parent for parent in repair["parents"]]
+
+    swap(node, repair)
 
     # if lengths of nodes and parents are both 1, then this means we need to swap with the root
     
@@ -65,24 +77,24 @@ if __name__ == "__main__":
         {"id": "1", "left": None, "right": None, "value": 1}
     ]
 
-    nodes = [
-        {"id": "10", "left": "7", "right": "20", "value": 10},
-        {"id": "7", "left": "3", "right": "12", "value": 7},
-        {"id": "12", "left": None, "right": None, "value": 12},
-        {"id": "20", "left": "8", "right": "22", "value": 20},
-        {"id": "22", "left": None, "right": None, "value": 22},
-        {"id": "3", "left": "2", "right": None, "value": 3},
-        {"id": "8", "left": None, "right": "14", "value": 8},
-        {"id": "14", "left": None, "right": None, "value": 14},
-        {"id": "2", "left": None, "right": None, "value": 2}
-    ]
+    # nodes = [
+    #     {"id": "10", "left": "7", "right": "20", "value": 10},
+    #     {"id": "7", "left": "3", "right": "12", "value": 7},
+    #     {"id": "12", "left": None, "right": None, "value": 12},
+    #     {"id": "20", "left": "8", "right": "22", "value": 20},
+    #     {"id": "22", "left": None, "right": None, "value": 22},
+    #     {"id": "3", "left": "2", "right": None, "value": 3},
+    #     {"id": "8", "left": None, "right": "14", "value": 8},
+    #     {"id": "14", "left": None, "right": None, "value": 14},
+    #     {"id": "2", "left": None, "right": None, "value": 2}
+    # ]
 
-    nodes = [
-        {"id": "2", "left": "1", "right": "4", "value": 2},
-        {"id": "1", "left": None, "right": "3", "value": 1},
-        {"id": "3", "left": None, "right": None, "value": 3},
-        {"id": "4", "left": None, "right": None, "value": 4}
-    ]
+    # nodes = [
+    #     {"id": "2", "left": "1", "right": "4", "value": 2},
+    #     {"id": "1", "left": None, "right": "3", "value": 1},
+    #     {"id": "3", "left": None, "right": None, "value": 3},
+    #     {"id": "4", "left": None, "right": None, "value": 4}
+    # ]
 
     store = {}
 
