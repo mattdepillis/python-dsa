@@ -1,5 +1,8 @@
 """
+Write a function that takes in a sorted array of integers and a target integer. Use a variation of the binary search algorithm to find the range of array indices, inclusive, where the values at those array indices are equal to the target value.
 
+TC: O(log(n)) - takes us log(n) times to split the array by its middle and determine whether the subarray middles are out- or in-range
+SC: O(1) -- we simply reassign values at each while loop. no n-complex data structure instantiated
 """
 def check_subarray_middle(array, target, start, end, side):
     middle = ((end - start) // 2) + start
