@@ -1,5 +1,8 @@
 """
+Write a function that takes in the head of a Singly Linked List and returns a boolean representing whether the linked list's nodes form a palindrome. Your function shouldn't make use of any auxiliary data structure.
 
+TC: O(n) -- iterate through the linked list 2 full times maximum
+SC: O(n) -- add another property PREV to each list node. We can do better than this with a slight mod -- see solution 2.
 """
 class Node:
     def __init__(self, value):
@@ -10,6 +13,7 @@ def assign_prev_node(head):
     prev, curr = None, head
 
     while curr:
+        # NOTE: there's a way to effectively achieve this without adding a prev property to each instance of Node -- reverse the linked list from the halfway mark of the list.
         curr.prev = prev
         curr, prev = curr.next, curr
 
